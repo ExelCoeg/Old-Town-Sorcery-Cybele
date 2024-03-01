@@ -1,0 +1,99 @@
+
+using UnityEngine;
+
+public class DamageOverTime : MonoBehaviour
+{
+    float timer;
+
+    float speed;
+    float aoeRadius;
+    float aoeTime;
+    float aoeDamage;
+    float dotTime;
+
+    float dotTimer;
+
+    Vector2 targetPos;
+    bool isActivated;
+
+   
+    public void SetValues( float speed, float aoeRadius, float aoeDamage, float aoeTime, float dotTime)
+    {
+       
+        this.speed = speed;
+        this.aoeDamage = aoeDamage;
+        this.aoeRadius = aoeRadius;
+        this.aoeTime = aoeTime;
+        this.dotTime = dotTime;
+    }
+    void Start()
+    {
+        Vector3 tempRotation = transform.eulerAngles;
+        tempRotation.z += 180;
+        transform.eulerAngles = tempRotation;
+        targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (isActivated)
+        {
+            StartAOE();
+        }
+        else
+        {
+            MoveTowards(targetPos);
+        }
+        if (Vector2.Distance(transform.position, targetPos) <= 0.1f)
+        {
+            isActivated = true;
+        }
+    }
+    void StartAOE()
+    {
+        Collider2D[] damagedObjs = Physics2D.OverlapCircleAll(transform.position, aoeRadius);
+        foreach (Collider2D damageObj in damagedObjs)
+        {
+            dotTimer += Time.deltaTime;
+            if (dotTimer >= dotTime)
+            {
+                IDamagable damagable = damageObj.GetComponent<IDamagable>();
+                if(damagable!=null) {
+                    damagable.TakeDamage(aoeDamage);
+                }
+                dotTimer = 0;
+            }
+        }
+        GetComponent<SpriteRenderer>().sprite = null;
+        ParticleSystem foundEffect = FindObjectOfType<ParticleSystem>();
+        if (foundEffect)
+        {
+            
+            foundEffect.Play();
+        }
+        if (foundEffect.isPlaying)
+        {
+            print("effect is playing");
+        }
+        Destroy(gameObject, aoeTime);
+    }
+
+
+    private void MoveTowards(Vector2 target)
+    {
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            isActivated = true;
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, aoeRadius);
+    }
+}

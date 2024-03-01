@@ -1,32 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellCaster : MonoBehaviour
 {
-    public void Cast(Spell spell, Transform firePoint)
+    public void AOECast(AOESpell spell, Transform firePoint)
     {
         if(spell != null)
         {
             print("casting: " + spell.spellName);
+            GameObject spellClone = Instantiate(spell.spellGameObject,firePoint.position,firePoint.rotation);
 
-            //instantiate spell effects dll
-            GameObject fireballClone = Instantiate(spell.spellObject, firePoint.position, firePoint.rotation);
-            SpellMovement spellMovement = fireballClone.GetComponent<SpellMovement>();
-            if(spellMovement != null)
+            if (spell.tag == "damageOverTime")
             {
-                spellMovement.setSpeed(spell.speed);
+                var spellType = spellClone.AddComponent<DamageOverTime>();
+                if(spell.name == "FireSpell")
+                {
+                    var fireEffect = spellClone.AddComponent<FireEffect>();
+                    spellType.SetValues(spell.speed, spell.aoeRadius, spell.aoeDamage, spell.spellFinishTime, spell.dotTime);
+                    if (fireEffect)
+                    {
+                        fireEffect.SetValues(spell.effect, firePoint); ;
+                    }
+                }
             }
-          
+            
             GetComponent<PlayerMana>().currentMana -= spell.manaCost;
             
         }
     }
-
-    public void ApplySpellDamage(int damage)
+    public void SelfTargetCast(SelfTargetSpell spell, Transform firePoint)
     {
-        return;
+        if (spell != null)
+        {
+            print("casting: " + spell.spellName);
+            GameObject spellScript = Instantiate(spell.spellScript, transform.position, Quaternion.identity);
+            spellScript.transform.SetParent(gameObject.transform);
+            if (spell.tag == "buff")
+            {
+                if(spell.name == "HealSpell")
+                {
+                    var healingScript = spellScript.AddComponent<HealingSpell>();
+                    healingScript.SetValues(spell.spellFinishTime);
+                }
+            }
+            GetComponent<PlayerMana>().currentMana -= spell.manaCost;
+        }
     }
+ 
+   
     
 
 }

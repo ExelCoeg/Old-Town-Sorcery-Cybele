@@ -1,13 +1,13 @@
 
+using TMPro;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Spells/Spell")]
+
 public class Spell : ScriptableObject
 {
+    [Header("Spell")]
+    public string tag;
     public string spellName;
     public int manaCost;
-    public float speed;
-    public float aoeRadius;
-    public int aoeDamage;
-    //public GameObject effect;
-    public GameObject spellObject;
+    public float spellFinishTime;
+    public ParticleSystem effect;
 }
