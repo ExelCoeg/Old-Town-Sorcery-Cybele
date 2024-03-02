@@ -1,20 +1,21 @@
 
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class DamageOverTime : MonoBehaviour
 {
-    float timer;
-
+    /*------ Spell Attributes --------*/
     float speed;
     float aoeRadius;
     float aoeTime;
     float aoeDamage;
     float dotTime;
-
     float dotTimer;
 
     Vector2 targetPos;
-    bool isActivated;
+
+    /*------ Private variable --------*/
+    private bool isActivated;
 
    
     public void SetValues( float speed, float aoeRadius, float aoeDamage, float aoeTime, float dotTime)
@@ -36,18 +37,12 @@ public class DamageOverTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActivated)
-        {
-            StartAOE();
-        }
-        else
-        {
-            MoveTowards(targetPos);
-        }
-        if (Vector2.Distance(transform.position, targetPos) <= 0.1f)
-        {
-            isActivated = true;
-        }
+        if (isActivated) StartAOE();
+
+        else MoveTowards(targetPos);
+
+        if (Vector2.Distance(transform.position, targetPos) <= 0.1f) isActivated = true;
+
     }
     void StartAOE()
     {
@@ -58,24 +53,19 @@ public class DamageOverTime : MonoBehaviour
             if (dotTimer >= dotTime)
             {
                 IDamagable damagable = damageObj.GetComponent<IDamagable>();
-                if(damagable!=null) {
-                    damagable.TakeDamage(aoeDamage);
-                }
+                if(damagable!=null) damagable.TakeDamage(aoeDamage);
                 dotTimer = 0;
             }
         }
         GetComponent<SpriteRenderer>().sprite = null;
-        ParticleSystem foundEffect = FindObjectOfType<ParticleSystem>();
+        Transform foundEffect = transform.Find("Fire(Clone)");
         if (foundEffect)
         {
+            var effect = foundEffect.GetComponent<ParticleSystem>();
             
-            foundEffect.Play();
+            if (!effect.isPlaying) effect.Play();
+            Destroy(gameObject, aoeTime);
         }
-        if (foundEffect.isPlaying)
-        {
-            print("effect is playing");
-        }
-        Destroy(gameObject, aoeTime);
     }
 
 
@@ -87,10 +77,7 @@ public class DamageOverTime : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
-        {
-            isActivated = true;
-        }
+        if (collision.CompareTag("Enemy")) isActivated = true;
     }
     private void OnDrawGizmos()
     {

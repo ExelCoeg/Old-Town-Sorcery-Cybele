@@ -15,7 +15,7 @@ MonoBehaviour:
   tag: damageOverTime
   spellName: FireSpell
   manaCost: 20
-  spellFinishTime: 3
+  spellFinishTime: 6
   effect: {fileID: 56852242586695117, guid: 4d7e19c9fcb52be4bb9a8ba855ffe12d, type: 3}
   spellGameObject: {fileID: 1973797488871700, guid: 48e06088b7e195f40898a828bd389ec3, type: 3}
   speed: 5

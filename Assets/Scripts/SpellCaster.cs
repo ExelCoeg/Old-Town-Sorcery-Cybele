@@ -9,7 +9,7 @@ public class SpellCaster : MonoBehaviour
         if(spell != null)
         {
             print("casting: " + spell.spellName);
-            GameObject spellClone = Instantiate(spell.spellGameObject,firePoint.position,firePoint.rotation);
+            GameObject spellClone = Instantiate(spell.spellGameObject,firePoint.position,Quaternion.identity);
 
             if (spell.tag == "damageOverTime")
             {
@@ -24,9 +24,7 @@ public class SpellCaster : MonoBehaviour
                     }
                 }
             }
-            
             GetComponent<PlayerMana>().currentMana -= spell.manaCost;
-            
         }
     }
     public void SelfTargetCast(SelfTargetSpell spell, Transform firePoint)
@@ -47,8 +45,4 @@ public class SpellCaster : MonoBehaviour
             GetComponent<PlayerMana>().currentMana -= spell.manaCost;
         }
     }
- 
-   
-    
-
 }

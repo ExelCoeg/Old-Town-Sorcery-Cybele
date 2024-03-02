@@ -3,13 +3,19 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    [SerializeField] float speed;
+    Animator anim;
+
     Vector3 move;
+
+    [SerializeField] float playerSpeed;
+    float speed;
+
     public bool isFacingRight = true;
-    
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -31,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     {
         move.x = Input.GetAxisRaw("Horizontal");
         move.y = Input.GetAxisRaw("Vertical");
-        rb.velocity = speed * move;
+        rb.velocity = playerSpeed * move;
+
+        speed = Vector3.SqrMagnitude(rb.velocity);
+        anim.SetFloat("speed", speed);
     }
 }
