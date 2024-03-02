@@ -33,8 +33,8 @@ public class PlayerCombat : MonoBehaviour
 
     /*---------- animation string variables ----------*/
     private string attack_parameter = "attack";
-    private string onFireSpell_parameter = "player_fireball_potion";
-    private string onHealSpell_parameter ="player_healing_potion";
+    private string onFireSpell_parameter = "player_spell_fire";
+    private string onHealSpell_parameter ="player_spell_heal";
     private string idle_parameter = "player_idle";
     private string currentAnimation;
     private void Awake()
