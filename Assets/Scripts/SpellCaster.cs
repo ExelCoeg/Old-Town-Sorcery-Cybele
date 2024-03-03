@@ -23,6 +23,7 @@ public class SpellCaster : MonoBehaviour
                         fireEffect.SetValues(spell.effect, firePoint); ;
                     }
                 }
+
             }
             GetComponent<PlayerMana>().currentMana -= spell.manaCost;
         }

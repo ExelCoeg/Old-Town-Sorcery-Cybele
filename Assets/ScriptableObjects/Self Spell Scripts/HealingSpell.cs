@@ -6,6 +6,7 @@ public class HealingSpell : MonoBehaviour
     private void Start()
     {
         GetComponent<ParticleSystem>().Play();
+
         GetComponentInParent<PlayerHealth>().currentHealth += 30;
     }
     public void SetValues(float spellFinishTime)
