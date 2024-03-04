@@ -1,8 +1,15 @@
 
 using UnityEngine;
 
-public class ThrowableObject : MonoBehaviour, IThrowable
+public class ThrowablePotion : MonoBehaviour, IThrowable
 {
+    [SerializeField] float aoeRadius = 1f;
+    [SerializeField] int decreaseAmount;
+    [SerializeField] float disappearTime;
+
+    public ThrowablePotionName potionName;
+    public ThrowablePotionName PotionName { get { return PotionName; } }
+
     Vector2 targetPos;
     float speed;
     bool isActivated = false;
@@ -15,6 +22,17 @@ public class ThrowableObject : MonoBehaviour, IThrowable
         if (Vector2.Distance(targetPos, transform.position) <= 0.1f)
         { 
             isActivated = false;
+            if(potionName== ThrowablePotionName.DEFENSE_DEBUFF)
+            {
+                if(TryGetComponent<DefenseDebuffPotion>(out DefenseDebuffPotion potionScript))
+                {
+                    potionScript.init(aoeRadius, decreaseAmount, disappearTime);
+                }
+            }
+            //if(potionName == PotionName.SLOW)
+            //{
+            //    if(TryGetComponent<>)
+            //}
         }
     }
     public void Launch(Vector2 targetPos, float speed)

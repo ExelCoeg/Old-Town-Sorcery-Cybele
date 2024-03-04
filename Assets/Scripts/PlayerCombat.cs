@@ -32,6 +32,7 @@ public class PlayerCombat : MonoBehaviour
     public Transform firePoint;
     public float attackRadius;
     public float attackDamage;
+    public float maxAttackDamage;
     public bool isAttacking;
 
     /*---------- State Variables----------- */
@@ -63,7 +64,8 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        
+        maxAttackDamage = attackDamage;
+
         onStates.Add(onMelee);
         onStates.Add(onSpell);
         onStates.Add(onPotion);
