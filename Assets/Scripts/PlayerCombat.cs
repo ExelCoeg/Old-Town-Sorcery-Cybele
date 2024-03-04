@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Tilemaps;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -19,17 +20,28 @@ public class PlayerCombat : MonoBehaviour
     int currentSpell;
     public List<Spell> ownedSpells = new List<Spell>();
 
+    /*---------- potions ----------*/
+    int currentPotion;
+    int throwSpeed;
+    public List<GameObject> ownedPotions = new List<GameObject>();
+
     /*---------- attack attributes --------*/
     public Transform firePoint;
     public float attackRadius;
     public float attackDamage;
     public bool isAttacking;
+
+    /*---------- State Variables----------- */
+    int currentState = 0;
+    public List<bool> onStates = new List<bool>();
     bool onMelee = true;
-
-    /*---------- State Booleans ----------- */
-    public bool onFireSpell;
-    public bool onHealSpell;
-
+    bool onSpell = false;
+    bool onPotion = false;
+    /*
+     onStates[0] = onMelee
+     onStates[1] = onSpell
+     onStates[2] = onPotion
+      */
 
     /*---------- animation string variables ----------*/
     private string attack_parameter = "attack";
@@ -43,18 +55,31 @@ public class PlayerCombat : MonoBehaviour
         spellCaster = GetComponent<SpellCaster>();
         anim = GetComponent<Animator>();
     }
-    
+
+    private void Start()
+    {
+        
+        onStates.Add(onMelee);
+        onStates.Add(onSpell);
+        onStates.Add(onPotion);
+        
+    }
     // Update is called once per frame
     void Update()
     {
+
         AimingAt();
         UpdateCurrentCombatStateText();
         PlayerAnimation();
-
-        print("onMelee: " + onMelee);
+        CycleState();
 
         
-        if (!onMelee)
+        if (onPotion && ownedPotions.Count > 0)
+        {
+            if (Input.GetMouseButtonDown(0)) ThrowPotion(ownedPotions[currentPotion], mousePos, throwSpeed);
+        }
+
+        if (onSpell)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -68,10 +93,7 @@ public class PlayerCombat : MonoBehaviour
             if (currentSpell >= ownedSpells.Count) currentSpell = ownedSpells.Count - 1;
             if (ownedSpells.Count > 0)
             {
-                if (Input.GetMouseButtonDown(1))
-                {
-                    onMelee = true;
-                }
+
                 if (Input.GetMouseButtonDown(0) && GetComponent<PlayerMana>().currentMana >= ownedSpells[currentSpell].manaCost)
                 {
                     if (ownedSpells[currentSpell].GetType().Name == "AOESpell")
@@ -86,10 +108,10 @@ public class PlayerCombat : MonoBehaviour
                 }
             }
         }
-        else
+        if(onMelee)
         {
             if (Input.GetMouseButtonDown(0) && !isAttacking) PlayerAttack();
-            if (Input.GetMouseButtonDown(1)) onMelee = false;
+
         }
     }
     void PlayerAttack()
@@ -105,7 +127,6 @@ public class PlayerCombat : MonoBehaviour
     }
     void AimingAt()
     {
-
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
@@ -115,32 +136,27 @@ public class PlayerCombat : MonoBehaviour
         else currentRotation.z = -angle;
         firePoint.localEulerAngles = currentRotation;
     }
-    string GetCurrentCombatState()
-    {
-        if (!onMelee)
-        {
-            if(ownedSpells.Count > 0)
-            {
-                if (ownedSpells[currentSpell].name == "FireSpell")
-                {
-                    return "onFireSpell";
-                }
-                if (ownedSpells[currentSpell].name == "HealSpell")
-                {
-                    return "onHealSpell";
-                }
-            }
-        }
-        return "onMelee";
-    }
+   
     void UpdateCurrentCombatStateText()
     {
-        if (onMelee) combatStateText.text = "Using: " + GetCurrentCombatState();
-        else combatStateText.text = "Using: " + ownedSpells[currentSpell].spellName;
+        if (onStates[0]) combatStateText.text = "Using: Sword" ;
+        if (onStates[1] && ownedSpells.Count > 0) combatStateText.text = "Using: Spell: " + ownedSpells[currentSpell].spellName;
+        if (onStates[2] && ownedPotions.Count > 0) combatStateText.text = "Using: Potion: " + ownedPotions[currentPotion].name;
+    }
+    void ThrowPotion(GameObject potion, Vector2 targetPos, float speed)
+    {
+        GameObject potionClone = Instantiate(potion, firePoint.position, Quaternion.identity);
+        if(potionClone.TryGetComponent<IThrowable>(out IThrowable throwable))
+        {
+            throwable.Launch(targetPos, speed);
+        }
+
+        ownedPotions.Remove(potion);
+        
     }
     void PlayerAnimation()
     {
-        if (!onMelee && ownedSpells.Count > 0)
+        if (onStates[1] && ownedSpells.Count > 0)
         {
             if (ownedSpells[currentSpell].name == "FireSpell") ChangeAnimation(onFireSpell_parameter);
             if (ownedSpells[currentSpell].name == "HealSpell") ChangeAnimation(onHealSpell_parameter);
@@ -157,4 +173,25 @@ public class PlayerCombat : MonoBehaviour
         anim.Play(newAnimation);
         currentAnimation = newAnimation;
     }
+
+    
+    void CycleState()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            onStates[currentState] = false;
+            currentState++;
+            if(currentState >= onStates.Count)
+            {
+                currentState = 0;
+            }
+            onStates[currentState] = true;
+            
+        }
+        
+        onMelee = onStates[0];
+        onSpell = onStates[1];
+        onPotion = onStates[2];
+    }
+    
 }

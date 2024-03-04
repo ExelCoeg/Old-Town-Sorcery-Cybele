@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellThrow : MonoBehaviour
+public class EnemyDefense : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
