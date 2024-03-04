@@ -17,21 +17,26 @@ public class PlayerCombat : MonoBehaviour
     Vector2 mousePos;
 
     /*---------- spells -----------*/
+    
     int currentSpell;
     public List<Spell> ownedSpells = new List<Spell>();
 
     /*---------- potions ----------*/
+    [Header("Potions Attributes")]
     int currentPotion;
-    int throwSpeed;
+    public int throwSpeed;
     public List<GameObject> ownedPotions = new List<GameObject>();
 
     /*---------- attack attributes --------*/
+    [Header("Attack Attributes")]
     public Transform firePoint;
     public float attackRadius;
     public float attackDamage;
     public bool isAttacking;
 
     /*---------- State Variables----------- */
+    [Header("States")]
+
     int currentState = 0;
     public List<bool> onStates = new List<bool>();
     bool onMelee = true;
@@ -76,7 +81,7 @@ public class PlayerCombat : MonoBehaviour
         
         if (onPotion && ownedPotions.Count > 0)
         {
-            if (Input.GetMouseButtonDown(0)) ThrowPotion(ownedPotions[currentPotion], mousePos, throwSpeed);
+            if (Input.GetMouseButtonDown(0)) ThrowPotion(ownedPotions[currentPotion]);
         }
 
         if (onSpell)
@@ -143,16 +148,14 @@ public class PlayerCombat : MonoBehaviour
         if (onStates[1] && ownedSpells.Count > 0) combatStateText.text = "Using: Spell: " + ownedSpells[currentSpell].spellName;
         if (onStates[2] && ownedPotions.Count > 0) combatStateText.text = "Using: Potion: " + ownedPotions[currentPotion].name;
     }
-    void ThrowPotion(GameObject potion, Vector2 targetPos, float speed)
+    void ThrowPotion(GameObject potion)
     {
         GameObject potionClone = Instantiate(potion, firePoint.position, Quaternion.identity);
         if(potionClone.TryGetComponent<IThrowable>(out IThrowable throwable))
         {
-            throwable.Launch(targetPos, speed);
+            throwable.Launch(mousePos, throwSpeed);
         }
-
         ownedPotions.Remove(potion);
-        
     }
     void PlayerAnimation()
     {

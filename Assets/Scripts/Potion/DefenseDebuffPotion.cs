@@ -10,7 +10,7 @@ public class DefenseDebuffPotion : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-
+            print("Enemy defense decrease by 2");
             //collision.gameObject.GetComponent<EnemyDefense>().currentDefense -= 2;
         }
     }
