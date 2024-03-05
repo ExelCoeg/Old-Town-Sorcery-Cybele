@@ -20,8 +20,9 @@ public class EnemyCombat : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20;
-        }
+            print("colliding with player");
+            collision.gameObject.GetComponent<PlayerHealth>().currentHealth
+ -= 20;
+         }
     }
 }

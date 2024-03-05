@@ -12,6 +12,7 @@ public class ConsummablePotion : MonoBehaviour, IConsummable
     {
         
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -34,4 +35,6 @@ public class ConsummablePotion : MonoBehaviour, IConsummable
             buffATKScript.init(20);
         }
     }
+
+    
 }
