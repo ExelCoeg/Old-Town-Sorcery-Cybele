@@ -17,11 +17,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if(currentHealth > maxHealth) currentHealth = maxHealth;
         healthSlider.value = currentHealth;
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy")){
-            GetComponent<PlayerHealth>().currentHealth -= 20;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

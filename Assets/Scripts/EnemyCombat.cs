@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyCombat : MonoBehaviour
 {
-    // Start is called before the first frame update
+      // Start is called before the first frame update
     void Start()
     {
         
@@ -14,5 +14,14 @@ public class EnemyCombat : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20;
+        }
     }
 }
