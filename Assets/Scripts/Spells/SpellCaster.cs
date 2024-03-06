@@ -11,8 +11,8 @@ public class SpellCaster : MonoBehaviour
         fireballCooldown -= Time.deltaTime;
         scorchingCooldown -= Time.deltaTime;
 
-        print("fireballCooldown: " + fireballCooldown);
-        print("scorchingCooldown: " + scorchingCooldown);
+        // print("fireballCooldown: " + fireballCooldown);
+        // print("scorchingCooldown: " + scorchingCooldown);
     }
     public void AOECast(AOESpell spell, Transform firePoint)
     {

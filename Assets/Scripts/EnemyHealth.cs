@@ -5,15 +5,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable
 {
     [SerializeField] float maxHealth;
     public float currentHealth;
-
-    float damage;
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if(currentHealth <= 0)
@@ -21,14 +16,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable
             Destroy(gameObject);
         }
     }
-
     public void TakeDamage(float damageAmount)
     {
         if(damageAmount < GetComponent<EnemyDefense>().currentDefense){
             damageAmount = 0;
         }
-        
         currentHealth -= damageAmount - GetComponent<EnemyDefense>().currentDefense;
-        
     }
 }
