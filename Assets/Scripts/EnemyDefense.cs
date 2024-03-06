@@ -13,9 +13,5 @@ public class EnemyDefense : MonoBehaviour
         currentDefense = maxDefense;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

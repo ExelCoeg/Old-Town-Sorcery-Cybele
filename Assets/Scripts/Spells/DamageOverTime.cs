@@ -39,7 +39,9 @@ public class DamageOverTime : MonoBehaviour
     {
         if (isActivated) StartAOE();
 
-        else MoveTowards(targetPos);
+        else {
+            MoveTowards(targetPos);
+        }
 
         if (Vector2.Distance(transform.position, targetPos) <= 0.1f) isActivated = true;
 
@@ -52,6 +54,7 @@ public class DamageOverTime : MonoBehaviour
             dotTimer += Time.deltaTime;
             if (dotTimer >= dotTime)
             {
+            
                 IDamagable damagable = damageObj.GetComponent<IDamagable>();
                 if(damagable!=null) damagable.TakeDamage(aoeDamage);
                 dotTimer = 0;

@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4569cf5d530a6d4783295d5b0c23b70, type: 3}
-  m_Name: FireSpell
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  tag: damageOverTime
-  spellName: FireSpell
-  manaCost: 20
-  spellFinishTime: 6
+  tag: Damage Over Time
+  spellName: Fireball
+  manaCost: 45
+  cooldownTime: 8
   effect: {fileID: 56852242586695117, guid: 4d7e19c9fcb52be4bb9a8ba855ffe12d, type: 3}
   spellGameObject: {fileID: 1973797488871700, guid: 48e06088b7e195f40898a828bd389ec3, type: 3}
   speed: 5
   aoeRadius: 2
-  aoeDamage: 1
+  aoeDamage: 15
+  spellFinishTime: 6
   dotTime: 0.25

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
     [Header("States")]
 
     int currentState = 0;
-    public List<bool> onStates = new List<bool>();
+    [SerializeField] List<bool> onStates = new List<bool>();
     bool onMelee = true;
     bool onSpell = false;
     bool onPotion = false;
@@ -51,10 +52,15 @@ public class PlayerCombat : MonoBehaviour
 
     /*---------- animation string variables ----------*/
     private string attack_parameter = "attack";
-    private string onFireSpell_parameter = "player_spell_fire";
-    private string onHealSpell_parameter ="player_spell_heal";
+    private string onBuffAttackPotion_parameter = "player_potion_buff_attack";
+    private string onHealPotion_parameter = "player_potion_heal";
+    private string onDefenseDebuffPotion_parameter = "player_potion_defense_debuff";
+
+    private string playerHealed_parameter = "player_healed";
     private string idle_parameter = "player_idle";
     private string currentAnimation;
+    public bool onAnimation;
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -64,7 +70,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        maxAttackDamage = attackDamage;
+        attackDamage = maxAttackDamage;
 
         onStates.Add(onMelee);
         onStates.Add(onSpell);
@@ -79,11 +85,23 @@ public class PlayerCombat : MonoBehaviour
         UpdateCurrentCombatStateText();
         PlayerAnimation();
         CycleState();
-
         
-        if (onPotion && ownedPotions.Count > 0)
+        if (onPotion)
         {
-            if (Input.GetMouseButtonDown(0)) ThrowPotion(ownedPotions[currentPotion]);
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                currentPotion--;
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentPotion++;
+            }
+            if (currentPotion < 0) currentPotion = 0;
+            if (currentPotion >= ownedPotions.Count) currentPotion = ownedPotions.Count - 1;
+            if (Input.GetMouseButtonDown(0)) 
+            {
+                UsePotion(ownedPotions[currentPotion]);
+            }
         }
 
         if (onSpell)
@@ -98,19 +116,19 @@ public class PlayerCombat : MonoBehaviour
             }
             if (currentSpell < 0) currentSpell = 0;
             if (currentSpell >= ownedSpells.Count) currentSpell = ownedSpells.Count - 1;
-            if (ownedSpells.Count > 0)
+            if (ownedSpells.Count > 0 )
             {
 
                 if (Input.GetMouseButtonDown(0) && GetComponent<PlayerMana>().currentMana >= ownedSpells[currentSpell].manaCost)
                 {
+                    
                     if (ownedSpells[currentSpell].GetType().Name == "AOESpell")
                     {
                         spellCaster.AOECast(ownedSpells[currentSpell] as AOESpell, firePoint);
                     }
-
-                    if (ownedSpells[currentSpell].GetType().Name == "SelfTargetSpell")
-                    {
-                        spellCaster.SelfTargetCast(ownedSpells[currentSpell] as SelfTargetSpell, firePoint);
+                    if(ownedSpells[currentSpell].GetType().Name == "SingleTargetSpell"){
+                        
+                        spellCaster.SingleTargetCast(ownedSpells[currentSpell] as SingleTargetSpell);
                     }
                 }
             }
@@ -118,7 +136,6 @@ public class PlayerCombat : MonoBehaviour
         if(onMelee)
         {
             if (Input.GetMouseButtonDown(0) && !isAttacking) PlayerAttack();
-
         }
     }
     void PlayerAttack()
@@ -147,8 +164,11 @@ public class PlayerCombat : MonoBehaviour
     void UpdateCurrentCombatStateText()
     {
         if (onStates[0]) combatStateText.text = "Using: Sword" ;
-        if (onStates[1] && ownedSpells.Count > 0) combatStateText.text = "Using: Spell: " + ownedSpells[currentSpell].spellName;
-        if (onStates[2] && ownedPotions.Count > 0) combatStateText.text = "Using: Potion: " + ownedPotions[currentPotion].name;
+        if (onStates[1] && ownedSpells.Count > 0) combatStateText.text = "Spell: " + ownedSpells[currentSpell].spellName;
+        if (onStates[2] && ownedPotions.Count > 0) combatStateText.text = "Potion: " + ownedPotions[currentPotion].name;
+    }
+    void ConsumePotion(GameObject potion){
+        potion.GetComponent<IConsummable>().Use();
     }
     void ThrowPotion(GameObject potion)
     {
@@ -157,18 +177,39 @@ public class PlayerCombat : MonoBehaviour
         {
             throwable.Launch(mousePos, throwSpeed);
         }
+    }
+
+    void UsePotion(GameObject potion)
+    {
+        var throwable = potion.GetComponent<ThrowablePotion>();
+        if(throwable){
+            ThrowPotion(potion);
+        }
+        
+        var consummable = potion.GetComponent<ConsummablePotion>();
+        if (consummable){
+            ConsumePotion(potion);
+            if(consummable.potionName == ConsummablePotionName.HEAL && !onAnimation) 
+            {
+                onAnimation = true;
+                ChangeAnimation(playerHealed_parameter);
+            }
+        }
         ownedPotions.Remove(potion);
+        currentPotion--;
+        currentPotion = 0;
     }
     void PlayerAnimation()
     {
-        if (onStates[1] && ownedSpells.Count > 0)
-        {
-            if (ownedSpells[currentSpell].name == "FireSpell") ChangeAnimation(onFireSpell_parameter);
-            if (ownedSpells[currentSpell].name == "HealSpell") ChangeAnimation(onHealSpell_parameter);
-        }
-        else
+        if(onStates[0] && !onAnimation)
         {
             ChangeAnimation(idle_parameter);
+        }
+        
+        if(onStates[2] && ownedPotions.Count > 0 && !onAnimation){
+            if(ownedPotions[currentPotion].name =="Attack Buff Potion") ChangeAnimation(onBuffAttackPotion_parameter);
+            if(ownedPotions[currentPotion].name == "Heal Potion") ChangeAnimation(onHealPotion_parameter);
+            if(ownedPotions[currentPotion].name == "Defense Debuff Potion") ChangeAnimation(onDefenseDebuffPotion_parameter);
         }
 
     }
@@ -178,8 +219,6 @@ public class PlayerCombat : MonoBehaviour
         anim.Play(newAnimation);
         currentAnimation = newAnimation;
     }
-
-    
     void CycleState()
     {
         if (Input.GetMouseButtonDown(1))

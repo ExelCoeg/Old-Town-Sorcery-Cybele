@@ -11,7 +11,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     void Start()
     {
         currentHealth = maxHealth;
-        
     }
 
     // Update is called once per frame
@@ -21,11 +20,15 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         {
             Destroy(gameObject);
         }
-        
     }
 
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
+        if(damageAmount < GetComponent<EnemyDefense>().currentDefense){
+            damageAmount = 0;
+        }
+        
+        currentHealth -= damageAmount - GetComponent<EnemyDefense>().currentDefense;
+        
     }
 }

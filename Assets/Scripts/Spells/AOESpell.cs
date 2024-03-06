@@ -7,6 +7,11 @@ public class AOESpell: Spell
     [Header("AOE")]
     public float speed;
     public float aoeRadius;
-    [Range(0, 1f)] public float aoeDamage;
+    public float aoeDamage;
+    public float spellFinishTime;
+
     public float dotTime;
+    [Header("Spell Particle/Effect")]
+    public ParticleSystem effect;
+
 }

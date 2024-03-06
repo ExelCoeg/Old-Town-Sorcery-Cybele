@@ -26,7 +26,7 @@ public class DefenseDebuffPotion : MonoBehaviour
                 if (hit.TryGetComponent<EnemyDefense>(out EnemyDefense enemyDefense))
                 {
                     print("enemy defense is decreased by " + decreaseAmount);
-                    //EnemyDefense.currentDefense -=  20;
+                    enemyDefense.currentDefense -=  5;
                 }
             }
             Destroy(gameObject, disappearTime);

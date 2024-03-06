@@ -9,7 +9,7 @@ public enum ConsummablePotionName
 public interface IConsummable
 {
     ConsummablePotionName PotionName { get; }
-
+    public float PercentageAmount {set;}
     public void Use();
 
 }

@@ -172,6 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5679e6da752bd2348b59e196ac25bcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aoeRadius: 1
+  decreaseAmount: 1
+  disappearTime: 2
+  potionName: 0
 --- !u!114 &2606727936587317937
 MonoBehaviour:
   m_ObjectHideFlags: 0
