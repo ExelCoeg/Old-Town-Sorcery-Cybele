@@ -2,6 +2,7 @@
 using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
+    EnemyName enemyName;
     [Header("Attack Attributes")]
     public int attackDamage;
     float attackTimer;
@@ -14,10 +15,12 @@ public class EnemyCombat : MonoBehaviour
 
     /*--------animation variable ------------*/
     private string wolfAttack_parameter = "wolf_attack";
+    private string wolfMiniBossAttack_parameter = "wolf_mini_boss_attack";
     private string currentAnimation;
     
     private void Start() {
         attackTimer = attackCooldown + 2;
+        enemyName = GetComponent<EnemyMovement>().enemyName;
     }
     private void Update() {
        
@@ -44,7 +47,12 @@ public class EnemyCombat : MonoBehaviour
                 print("player got hit for "+ attackDamage);
             }
             player.taggedTimer = player.taggedUntilRegenTime;
-            ChangeAnimation(wolfAttack_parameter);
+            if(enemyName == EnemyName.WOLF){
+                ChangeAnimation(wolfAttack_parameter);
+            }
+            if(enemyName == EnemyName.WOLF_MINIBOSS){
+                ChangeAnimation(wolfMiniBossAttack_parameter);
+            }
             attackTimer = attackCooldown;
             // print(hit.distance);
         }

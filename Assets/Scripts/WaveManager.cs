@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour{
 
 
     public static WaveManager instance;
-
+    public bool coroutineControl;
     public List<Enemy> enemyList = new List<Enemy>();
     public List<Enemy> enemyToSpawn = new List<Enemy>();
+    public List<GameObject> enemySpawned = new List<GameObject>();
     public float spawnDelay;
     int currentNight;
     
@@ -42,6 +42,7 @@ public class WaveManager : MonoBehaviour{
         currentNight++;
         waveValue = currentNight * 10; 
         GenerateEnemies();
+        coroutineControl = true;
     }
     public void GenerateEnemies(){
         List<Enemy> temp = new List<Enemy>();

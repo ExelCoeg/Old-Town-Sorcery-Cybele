@@ -19,6 +19,8 @@ public class EnemyMovement : MonoBehaviour
     /*---------- animation variables ---------*/
 
     private string wolfWalk_parameter = "wolf_walk";
+    private string wolfMiniBossWalk_parameter = "wolf_mini_boss_walk";
+
     // private string wolfIdle_parameter = "wolf_idle";
     private string currentAnimation;
 
@@ -37,6 +39,9 @@ public class EnemyMovement : MonoBehaviour
         }
         if(enemyName == EnemyName.WOLF){
             ChangeAnimation(wolfWalk_parameter);
+        }
+        if(enemyName == EnemyName.WOLF_MINIBOSS){
+            ChangeAnimation(wolfMiniBossWalk_parameter);
         }
         
         transform.eulerAngles = distance < 0 ? Vector2.up * -180: Vector2.zero; 

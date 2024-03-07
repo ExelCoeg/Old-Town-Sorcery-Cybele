@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         if(currentHealth <= 0)
         {
+            WaveManager.instance.enemySpawned.Remove(gameObject);
             Destroy(gameObject);
         }
     }

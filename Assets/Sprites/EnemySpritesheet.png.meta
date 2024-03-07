@@ -479,9 +479,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 60
-        y: 978
-        width: 115
-        height: 166
+        y: 1016
+        width: 67
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -501,8 +501,8 @@ TextureImporter:
         serializedVersion: 2
         x: 251
         y: 1016
-        width: 94
-        height: 131
+        width: 66
+        height: 102
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -522,8 +522,8 @@ TextureImporter:
         serializedVersion: 2
         x: 442
         y: 1016
-        width: 112
-        height: 132
+        width: 66
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -562,10 +562,10 @@ TextureImporter:
       name: EnemySpritesheet_22
       rect:
         serializedVersion: 2
-        x: 767
+        x: 824
         y: 1016
-        width: 124
-        height: 130
+        width: 67
+        height: 102
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -583,10 +583,10 @@ TextureImporter:
       name: EnemySpritesheet_23
       rect:
         serializedVersion: 2
-        x: 978
+        x: 1018
         y: 1016
-        width: 148
-        height: 131
+        width: 65
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -626,9 +626,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 253
-        y: 824
-        width: 93
-        height: 115
+        y: 823
+        width: 67
+        height: 109
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -648,8 +648,8 @@ TextureImporter:
         serializedVersion: 2
         x: 446
         y: 824
-        width: 114
-        height: 113
+        width: 67
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -688,10 +688,10 @@ TextureImporter:
       name: EnemySpritesheet_28
       rect:
         serializedVersion: 2
-        x: 751
-        y: 787
-        width: 141
-        height: 150
+        x: 826
+        y: 824
+        width: 66
+        height: 107
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -709,10 +709,10 @@ TextureImporter:
       name: EnemySpritesheet_29
       rect:
         serializedVersion: 2
-        x: 980
+        x: 1023
         y: 824
-        width: 109
-        height: 114
+        width: 66
+        height: 101
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -732,7 +732,7 @@ TextureImporter:
         serializedVersion: 2
         x: 57
         y: 632
-        width: 119
+        width: 73
         height: 104
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -753,7 +753,7 @@ TextureImporter:
         serializedVersion: 2
         x: 249
         y: 632
-        width: 71
+        width: 70
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -793,10 +793,10 @@ TextureImporter:
       name: EnemySpritesheet_33
       rect:
         serializedVersion: 2
-        x: 645
+        x: 592
         y: 632
-        width: 114
-        height: 122
+        width: 161
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -814,10 +814,10 @@ TextureImporter:
       name: EnemySpritesheet_34
       rect:
         serializedVersion: 2
-        x: 839
-        y: 601
-        width: 143
-        height: 164
+        x: 790
+        y: 632
+        width: 148
+        height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -835,10 +835,10 @@ TextureImporter:
       name: EnemySpritesheet_35
       rect:
         serializedVersion: 2
-        x: 1020
+        x: 1019
         y: 632
-        width: 67
-        height: 98
+        width: 68
+        height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
