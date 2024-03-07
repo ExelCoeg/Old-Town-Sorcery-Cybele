@@ -4,5 +4,5 @@ using UnityEngine;
 public class SingleTargetSpell : Spell
 {
    public float damage;
-
+   public ParticleSystem effect;
 }

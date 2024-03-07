@@ -38,13 +38,14 @@ public class SpellCaster : MonoBehaviour
             
         }
     }
-    public void SingleTargetCast(SingleTargetSpell spell)
+    public void SingleTargetCast(SingleTargetSpell spell, ParticleSystem effect)
     {
         if(spell!= null){
             if(spell.name == "Scorching Blaze" && scorchingCooldown <= 0){
                 scorchingCooldown = spell.cooldownTime;
                 GameObject player=  GameObject.FindGameObjectWithTag("Player");
-                player.AddComponent<ScorchingBlaze>();
+                var script = player.AddComponent<ScorchingBlaze>();
+                script.init(spell.damage,effect);
             }
         }
     }

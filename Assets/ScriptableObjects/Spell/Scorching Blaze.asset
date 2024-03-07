@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: Single Target
   spellName: Scorching Blaze
-  manaCost: 20
+  manaCost: 30
   cooldownTime: 4
-  effect: {fileID: 0}
-  damage: 12
+  damage: 40

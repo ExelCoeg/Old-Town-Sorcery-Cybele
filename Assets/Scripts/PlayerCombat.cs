@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Tilemaps;
-using Unity.VisualScripting;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -52,6 +50,7 @@ public class PlayerCombat : MonoBehaviour
 
     /*---------- animation string variables ----------*/
     private string attack_parameter = "attack";
+    private string playerCasting_parameter = "player_casting_spell";
     private string onBuffAttackPotion_parameter = "player_potion_buff_attack";
     private string onHealPotion_parameter = "player_potion_heal";
     private string onDefenseDebuffPotion_parameter = "player_potion_defense_debuff";
@@ -128,8 +127,10 @@ public class PlayerCombat : MonoBehaviour
                     }
                     if(ownedSpells[currentSpell].GetType().Name == "SingleTargetSpell"){
                         
-                        spellCaster.SingleTargetCast(ownedSpells[currentSpell] as SingleTargetSpell);
+                        var spell = ownedSpells[currentSpell] as SingleTargetSpell;
+                        spellCaster.SingleTargetCast(spell, spell.effect);
                     }
+                    ChangeAnimation(playerCasting_parameter);
                 }
             }
         }
@@ -145,7 +146,7 @@ public class PlayerCombat : MonoBehaviour
         Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, attackRadius);
         foreach(Collider2D enemy in enemies)
         {
-            if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.currentHealth--;
+            if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
         }
        
     }
@@ -236,6 +237,9 @@ public class PlayerCombat : MonoBehaviour
         onMelee = onStates[0];
         onSpell = onStates[1];
         onPotion = onStates[2];
+    }
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(firePoint.position, attackRadius);
     }
     
 }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ConsummablePotion : MonoBehaviour, IConsummable
@@ -16,7 +15,7 @@ public class ConsummablePotion : MonoBehaviour, IConsummable
 
         if (potionName == ConsummablePotionName.HEAL)
         {
-            player.GetComponent<PlayerHealth>().currentHealth +=  (int) (percentageAmount / 100.0 *  player.GetComponent<PlayerHealth>().currentHealth);
+            player.GetComponent<PlayerHealth>().currentHealth +=  (int) (percentageAmount / 100.0 *  player.GetComponent<PlayerHealth>().maxHealth);
             
         }
         if(potionName == ConsummablePotionName.ATK_BUFF)

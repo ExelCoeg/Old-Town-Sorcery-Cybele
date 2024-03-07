@@ -1,25 +1,55 @@
 using UnityEngine;
+
+public enum EnemyName{
+    WOLF,
+    WOLF_MINIBOSS,
+    WOLF_BOSS
+}
 public class EnemyMovement : MonoBehaviour
 {
-   
+    public EnemyName enemyName;
     public float speed;
-    public float distanceBetween;
+    
     private float distance;
-    void Update()
+
+    [SerializeField] float detectRadius = 2f;
+    [SerializeField] Transform targetPosition;
+    public LayerMask playerLayer;
+
+    /*---------- animation variables ---------*/
+
+    private string wolfWalk_parameter = "wolf_walk";
+    // private string wolfIdle_parameter = "wolf_idle";
+    private string currentAnimation;
+
+   
+    void FixedUpdate()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        distance = player.transform.position.x - transform.position.x;
-        // distance = Vector2.Distance(transform.position, player.transform.position);
-        // Vector2 direction = player.transform.position - transform.position;
-        // direction.Normalize();
-        // float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        // print(distance);
-        if (distance < distanceBetween)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        
+        Collider2D playerDetect = Physics2D.OverlapCircle(transform.position, detectRadius, playerLayer);
+        if(playerDetect){
+            distance = playerDetect.gameObject.transform.position.x - transform.position.x;
+            transform.position = Vector2.MoveTowards(transform.position, playerDetect.gameObject.transform.position, speed * Time.fixedDeltaTime);
+        }
+        else if(playerDetect == null) {
+            distance = targetPosition.position.x - transform.position.x;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition.position, speed * Time.fixedDeltaTime);
+        }
+        if(enemyName == EnemyName.WOLF){
+            ChangeAnimation(wolfWalk_parameter);
         }
         
-        transform.eulerAngles = distance < 0 ? Vector2.up * -180: Vector2.zero;
+        transform.eulerAngles = distance < 0 ? Vector2.up * -180: Vector2.zero; 
+       
+    }
 
+    public void ChangeAnimation(string newAnimation){
+        if(currentAnimation == newAnimation) return;
+        GetComponent<Animator>().Play(newAnimation);
+        currentAnimation = newAnimation;
+    }
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 }

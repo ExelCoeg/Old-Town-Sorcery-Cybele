@@ -207,9 +207,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e033dd4e97dd45bcbc0f25dd52061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6303648725642344576, guid: 9b8c7c31bc7d47949ae64125b945a733, type: 3}
+  enemyName: 0
   speed: 2
-  distanceBetween: 5
+  detectRadius: 2
+  targetPosition: {fileID: 4948051065644382341, guid: 9e090c4dd4deee24e90c3473919dc7e4, type: 3}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &9003407140783907899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,8 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186558940d687354085c3136b4b27da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
-  attackCooldown: 1
+  attackDamage: 8
+  attackCooldown: 3
   attackRange: 1.5
   attackPoint: {fileID: 3634760435019008277}
   playerLayer:
@@ -241,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06698b3ff6c329f41a6af29b940ccb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 20
   currentHealth: 0
 --- !u!114 &4026819149853843674
 MonoBehaviour:
@@ -255,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3254fe886d3ae24caa602a180dc44b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDefense: 10
+  maxDefense: 4
   currentDefense: 0
 --- !u!95 &5292719721183484225
 Animator:
