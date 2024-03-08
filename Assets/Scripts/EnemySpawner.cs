@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] Transform targetPos;
     
     private void Update() {
         
@@ -14,16 +15,16 @@ public class EnemySpawner : MonoBehaviour
     }
     IEnumerator SpawnEnemy(){
         WaveManager.instance.coroutineControl = false;
-        print("on coroutine");
         WaitForSeconds spawnDelay = new WaitForSeconds(WaveManager.instance.spawnDelay);
         int spawn = 0;
         while(WaveManager.instance.enemyToSpawn.Count > 0){
             spawn++;
-            print("spawn time: " + spawn);
+            // print("spawn time: " + spawn);
             
             WaveManager.Enemy enemy = WaveManager.instance.enemyToSpawn[Random.Range(0,WaveManager.instance.enemyToSpawn.Count-1)];
             if(enemy != null){
                 GameObject enemyClone =  Instantiate(enemy.enemyGameObject, transform.position, Quaternion.identity);
+                enemyClone.GetComponent<EnemyMovement>().SetTargetPosition(targetPos);
                 WaveManager.instance.enemySpawned.Add(enemyClone);
                 WaveManager.instance.enemyToSpawn.Remove(enemy);
                 yield return spawnDelay;

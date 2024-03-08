@@ -52,9 +52,11 @@ public class PlayerCombat : MonoBehaviour
     private string attack_parameter = "attack";
     private string playerCasting_parameter = "player_casting_spell";
     private string onBuffAttackPotion_parameter = "player_potion_buff_attack";
+    private string onBuffAttackPotionWalk_parameter = "player_potion_buff_attack_walk";
     private string onHealPotion_parameter = "player_potion_heal";
+    private string onHealPotionWalk_parameter = "player_potion_heal_walk";
     private string onDefenseDebuffPotion_parameter = "player_potion_defense_debuff";
-
+    private string onDefenseDebuffPotionWalk_parameter = "player_potion_defense_debuff_walk";
     private string playerHealed_parameter = "player_healed";
     private string idle_parameter = "player_idle";
     private string currentAnimation;
@@ -210,10 +212,37 @@ public class PlayerCombat : MonoBehaviour
         }
         
         if(onStates[2] && ownedPotions.Count > 0 && !onAnimation){
-            if(ownedPotions[currentPotion].name =="Attack Buff Potion") ChangeAnimation(onBuffAttackPotion_parameter);
-            if(ownedPotions[currentPotion].name == "Heal Potion") ChangeAnimation(onHealPotion_parameter);
-            if(ownedPotions[currentPotion].name == "Defense Debuff Potion") ChangeAnimation(onDefenseDebuffPotion_parameter);
+            if(ownedPotions[currentPotion].name =="Attack Buff Potion") 
+            {
+                if(rb.velocity.x != 0 ){
+                    ChangeAnimation(onBuffAttackPotionWalk_parameter);
+                }
+                else{
+                    ChangeAnimation(onBuffAttackPotion_parameter);
+                }
+            }
+            if(ownedPotions[currentPotion].name == "Heal Potion")
+            {
+                if(rb.velocity.x != 0 ){
+                    ChangeAnimation(onHealPotionWalk_parameter);
+                }
+                else{
+                    ChangeAnimation(onHealPotion_parameter);
+                }
+            }
+            
+            if(ownedPotions[currentPotion].name == "Defense Debuff Potion")
+            {
+                if(rb.velocity.x != 0){
+                    ChangeAnimation(onDefenseDebuffPotionWalk_parameter);
+                }
+                else{
+                    ChangeAnimation(onDefenseDebuffPotion_parameter);
+                }
+            } 
+                
         }
+        
 
     }
     void ChangeAnimation(string newAnimation)

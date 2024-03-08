@@ -13,7 +13,7 @@ public class EnemyMovement : MonoBehaviour
     private float distance;
 
     [SerializeField] float detectRadius = 2f;
-    [SerializeField] Transform targetPosition;
+    public Transform targetPosition;
     public LayerMask playerLayer;
 
     /*---------- animation variables ---------*/
@@ -56,5 +56,8 @@ public class EnemyMovement : MonoBehaviour
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
+    }
+    public void SetTargetPosition(Transform targetPos){
+        targetPosition = targetPos;
     }
 }
