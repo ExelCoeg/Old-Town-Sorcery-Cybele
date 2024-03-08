@@ -1,13 +1,15 @@
 using UnityEngine.UI;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerMana : MonoBehaviour
 {
     [SerializeField] int maxMana;
     public int currentMana;
     [SerializeField] Slider manaSlider;
-
-    float timer;
+    float usedUntilRegenTime = 2f;
+    float usedTimer;
+    float regenTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,17 +19,35 @@ public class PlayerMana : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if(timer >= 1 && currentMana < maxMana)
+        if(usedTimer >= 0)
         {
-            currentMana += 10;
-            timer = 0;
-            if(currentMana > maxMana){
-                currentMana = maxMana;
+            usedTimer -= Time.deltaTime;
+        }
+        if(currentMana < maxMana)
+        {
+            if(usedTimer <= 0)
+            {
+                regenTimer -= Time.deltaTime;
+                if(regenTimer <= 0)
+                {
+                    IncreaseMana();
+                    if(currentMana > maxMana)
+                    {
+                        currentMana = maxMana;
+                    }
+                    regenTimer = 1;
+                }
+        
             }
         }
-
-
         manaSlider.value = currentMana;
     }
+
+    public void ResetUseTimer(){
+        usedTimer = usedUntilRegenTime;
+    }
+    public void IncreaseMana(){
+        currentMana += 10;
+    }
+    
 }

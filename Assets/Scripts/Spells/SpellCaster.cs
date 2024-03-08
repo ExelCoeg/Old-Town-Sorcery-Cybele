@@ -8,11 +8,11 @@ public class SpellCaster : MonoBehaviour
     public float fireballCooldown;
     public float scorchingCooldown;
     private void Update(){
-        fireballCooldown -= Time.deltaTime;
-        scorchingCooldown -= Time.deltaTime;
+        if(fireballCooldown >= 0)fireballCooldown -= Time.deltaTime;
+        
+        if(scorchingCooldown >= 0)scorchingCooldown -= Time.deltaTime;
 
-        // print("fireballCooldown: " + fireballCooldown);
-        // print("scorchingCooldown: " + scorchingCooldown);
+
     }
     public void AOECast(AOESpell spell, Transform firePoint)
     {
@@ -34,6 +34,8 @@ public class SpellCaster : MonoBehaviour
                     fireEffect.SetValues(spell.effect, firePoint);
                 }
                 GetComponent<PlayerMana>().currentMana -= spell.manaCost;
+                GetComponent<PlayerMana>().ResetUseTimer();
+
             }
             
         }
@@ -46,6 +48,8 @@ public class SpellCaster : MonoBehaviour
                 GameObject player=  GameObject.FindGameObjectWithTag("Player");
                 var script = player.AddComponent<ScorchingBlaze>();
                 script.init(spell.damage,effect);
+                GetComponent<PlayerMana>().currentMana -= spell.manaCost;
+                GetComponent<PlayerMana>().ResetUseTimer();
             }
         }
     }

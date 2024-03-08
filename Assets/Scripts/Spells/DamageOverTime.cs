@@ -54,9 +54,9 @@ public class DamageOverTime : MonoBehaviour
             dotTimer += Time.deltaTime;
             if (dotTimer >= dotTime)
             {
-            
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
                 IDamagable damagable = damageObj.GetComponent<IDamagable>();
-                if(damagable!=null) damagable.TakeDamage(aoeDamage);
+                if(damagable!=null) damagable.TakeDamage(aoeDamage + 0.4f * player.GetComponent<PlayerCombat>().attackDamage);
                 dotTimer = 0;
             }
         }

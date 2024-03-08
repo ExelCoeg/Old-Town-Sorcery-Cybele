@@ -99,7 +99,7 @@ public class PlayerCombat : MonoBehaviour
             if (currentPotion >= ownedPotions.Count) currentPotion = ownedPotions.Count - 1;
             if (Input.GetMouseButtonDown(0)) 
             {
-                UsePotion(ownedPotions[currentPotion]);
+                UsePotion(ownedPotions[currentPotion]);     
             }
         }
 
@@ -131,6 +131,7 @@ public class PlayerCombat : MonoBehaviour
                         spellCaster.SingleTargetCast(spell, spell.effect);
                     }
                     ChangeAnimation(playerCasting_parameter);
+                    
                 }
             }
         }
@@ -142,8 +143,8 @@ public class PlayerCombat : MonoBehaviour
     void PlayerAttack()
     {
         isAttacking = true;
-        float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-        transform.eulerAngles = direction < 0 ? Vector2.up * -180: Vector2.zero; 
+        // float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+        // transform.eulerAngles = direction < 0 ? Vector2.up * -180: Vector2.zero; 
         anim.SetTrigger(attack_parameter);
         Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, attackRadius);
         foreach(Collider2D enemy in enemies)

@@ -46,7 +46,7 @@ public class EnemyCombat : MonoBehaviour
                 player.currentHealth -= attackDamage;
                 print("player got hit for "+ attackDamage);
             }
-            player.taggedTimer = player.taggedUntilRegenTime;
+            player.ResetTaggedTimer();
             if(enemyName == EnemyName.WOLF){
                 ChangeAnimation(wolfAttack_parameter);
             }

@@ -40,7 +40,7 @@ public class WaveManager : MonoBehaviour{
     public void GenerateWave(){
 
         currentNight++;
-        waveValue = currentNight * 10; 
+        waveValue = currentNight * 20; 
         GenerateEnemies();
         coroutineControl = true;
     }

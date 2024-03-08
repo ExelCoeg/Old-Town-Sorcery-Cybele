@@ -19,16 +19,25 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (move.x < 0 && isFacingRight)
-        {
-            transform.eulerAngles = Vector2.up * 180;
+        // if (move.x < 0 && isFacingRight)
+        // {
+        //     // transform.eulerAngles = Vector2.up * 180;
+        //     isFacingRight = false;
+        // }
+
+        // if (move.x > 0 && !isFacingRight)
+        // {
+        //     // transform.eulerAngles = Vector2.zero;
+        //     isFacingRight = true;
+        // }
+        float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+        if(direction< 0){
+            transform.eulerAngles = Vector2.up * -180;
             isFacingRight = false;
         }
-
-        if (move.x > 0 && !isFacingRight)
-        {
+        else{
             transform.eulerAngles = Vector2.zero;
-            isFacingRight = true;
+            isFacingRight  = true;
         }
     }
 

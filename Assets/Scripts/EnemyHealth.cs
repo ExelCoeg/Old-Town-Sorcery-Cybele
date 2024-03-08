@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamagable
@@ -11,10 +10,12 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     }
     void Update()
     {
-        if(currentHealth <= 0)
+        if(currentHealth <= 0.1)
         {
-            WaveManager.instance.enemySpawned.Remove(gameObject);
-            Destroy(gameObject);
+            GameObject enemyToRemove = WaveManager.instance.enemySpawned.Find(enemy => enemy == gameObject);
+            WaveManager.instance.enemySpawned.Remove(enemyToRemove);
+            //death animation
+            Destroy(gameObject,2);
         }
     }
     public void TakeDamage(float damageAmount)
