@@ -48,9 +48,9 @@ GameObject:
   - component: {fileID: 841749619059252855}
   - component: {fileID: 5356593617629312350}
   - component: {fileID: 3516117672867633516}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wolf Mini Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,7 @@ MonoBehaviour:
   targetPosition: {fileID: 2526836746922746300, guid: 9b8c7c31bc7d47949ae64125b945a733, type: 3}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &841749619059252855
 MonoBehaviour:
   m_ObjectHideFlags: 0

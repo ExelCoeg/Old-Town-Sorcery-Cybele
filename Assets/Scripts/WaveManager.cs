@@ -8,16 +8,17 @@ public class WaveManager : MonoBehaviour{
     public static WaveManager instance;
     public bool coroutineControl;
     public List<Enemy> enemyList = new List<Enemy>();
-    public List<GameObject> enemyToSpawn = new List<GameObject>();
+    // public List<Enemy> enemyToSpawn = new List<Enemy>();
     public List<GameObject> enemySpawned = new List<GameObject>();
     public float spawnDelay;
+    private float spawnTimer;
     int currentNight;
     private int waveValue;
     
 
     private float timer;
     public float noonTime;
-    bool noon = true;
+    public bool noon = true;
 
     public Light2D worldLight;
     private void Awake() {
@@ -41,28 +42,47 @@ public class WaveManager : MonoBehaviour{
                 GenerateWave();
             }   
         }
+       
         
-        if(enemyToSpawn.Count <= 0 && !noon & enemySpawned.Count <= 0){
+        if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
             worldLight.GetComponent<Animator>().SetTrigger("switch");
             noon = !noon;
             timer = noonTime;
         }   
+        
     }
     public void GenerateWave(){
         currentNight++;
         waveValue = currentNight * 10; 
-        GenerateEnemies();
-        coroutineControl = true;
+        // GenerateEnemies();
+        spawnTimer = spawnDelay;
+        // coroutineControl = true;
     }
-    public void GenerateEnemies(){
-        List<GameObject> temp = new List<GameObject>();
-        while(waveValue >= 0){
-            Enemy enemy = enemyList[Random.Range(0,enemyList.Count-1)];
-            
-            temp.Add(enemy.enemyGameObject);
-            waveValue -= enemy.value;
+    public void SpawnEnemy(Transform spawnPoint, Transform targetPos){
+        if(waveValue >= 0 ){
+            spawnTimer -= Time.deltaTime;
         }
-        enemyToSpawn = temp;
+        while(waveValue >= 0 && spawnTimer <= 0){
+            Enemy enemy = enemyList[Random.Range(0,enemyList.Count)];
+            if(enemy.value > waveValue){
+                spawnTimer = 0.1f;
+                break;
+            }
+            
+            GameObject enemyClone = Instantiate(enemy.enemyGameObject,spawnPoint.position,Quaternion.identity);
+            waveValue -= enemy.value;
+            spawnTimer = spawnDelay;
+            enemySpawned.Add(enemyClone);   
+            enemyClone.GetComponent<EnemyMovement>().SetTargetPosition(targetPos);
+        }
+        // List<Enemy> temp = new List<Enemy>();
+        // while(waveValue >= 0){
+        //     Enemy enemy = enemyList[Random.Range(0,enemyList.Count-1)];
+            
+        //     temp.Add(enemy);
+        //     waveValue -= enemy.value;
+        // }
+        // enemyToSpawn = temp;
     }
 
     [System.Serializable]

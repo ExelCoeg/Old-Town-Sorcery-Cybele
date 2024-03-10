@@ -12,10 +12,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         if(currentHealth <= 0.1)
         {
-            GameObject enemyToRemove = WaveManager.instance.enemySpawned.Find(enemy => enemy == gameObject);
-            WaveManager.instance.enemySpawned.Remove(enemyToRemove);
+            Destroy(gameObject);
             //death animation
-            Destroy(gameObject,2);
         }
     }
     public void TakeDamage(float damageAmount)
@@ -24,5 +22,9 @@ public class EnemyHealth : MonoBehaviour, IDamagable
             damageAmount = 0;
         }
         currentHealth -= damageAmount - GetComponent<EnemyDefense>().currentDefense;
+    }
+    private void OnDestroy() {
+            WaveManager.instance.enemySpawned.Remove(gameObject);
+        
     }
 }

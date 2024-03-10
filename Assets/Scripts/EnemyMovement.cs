@@ -24,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
     // private string wolfIdle_parameter = "wolf_idle";
     private string currentAnimation;
 
-   
+
     void FixedUpdate()
     {
         
