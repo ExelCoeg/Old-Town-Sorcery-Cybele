@@ -33,7 +33,7 @@ public class EnemyCombat : MonoBehaviour
         if(hit.collider != null && attackTimer <= 0){
             attackTimer = attackCooldown;
             var player = hit.collider.gameObject.GetComponent<PlayerHealth>();
-            player.currentHealth -=  attackDamage - (int) hit.distance ;
+            player.TakeDamage(attackDamage - (int) hit.distance);
 
             if(hit.distance >= attackRange - 0.2f){
                 player.currentHealth -= attackDamage * 80/100;

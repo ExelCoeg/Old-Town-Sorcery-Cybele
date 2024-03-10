@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 20
-  attackCooldown: 4
+  attackCooldown: 3
   attackRange: 2
   attackPoint: {fileID: 7780209522867391420}
   playerLayer:

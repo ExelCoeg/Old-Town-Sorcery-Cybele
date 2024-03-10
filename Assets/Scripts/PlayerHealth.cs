@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Unity.VisualScripting;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamagable
 {
     public int maxHealth;
     public int currentHealth;
@@ -52,6 +52,10 @@ public class PlayerHealth : MonoBehaviour
     void IncreaseHealth(){
         currentHealth += regenAmount;
     }
+
+    public void TakeDamage(float amount){
+        currentHealth -= (int)(amount * (float) GetComponent<PlayerDefense>().currentDefense/100f);
+    }   
 
     public void ResetTaggedTimer(){
         taggedTimer = taggedUntilRegenTime;
