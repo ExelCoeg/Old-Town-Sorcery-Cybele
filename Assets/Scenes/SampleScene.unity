@@ -4460,8 +4460,7 @@ MonoBehaviour:
   enemyToSpawn: []
   enemySpawned: []
   spawnDelay: 5
-  nightTime: 15
-  noonTime: 5
+  noonTime: 10
   worldLight: {fileID: 1442173503}
 --- !u!4 &1613507853
 Transform:
@@ -4805,7 +4804,7 @@ PrefabInstance:
       objectReference: {fileID: 2046194387}
     - target: {fileID: 1518304170351976557, guid: 9b8c7c31bc7d47949ae64125b945a733, type: 3}
       propertyPath: maxAttackDamage
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2141127576587474492, guid: 9b8c7c31bc7d47949ae64125b945a733, type: 3}
       propertyPath: m_LocalPosition.x

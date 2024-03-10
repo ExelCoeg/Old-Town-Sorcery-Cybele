@@ -12,16 +12,14 @@ public class WaveManager : MonoBehaviour{
     public List<GameObject> enemySpawned = new List<GameObject>();
     public float spawnDelay;
     int currentNight;
+    private int waveValue;
     
-    private float nightCountDown;
-    public float nightTime;
-    private float noonCountDown;
+
+    private float timer;
     public float noonTime;
+    bool noon = true;
 
     public Light2D worldLight;
-
-    
-    private int waveValue;
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -32,37 +30,27 @@ public class WaveManager : MonoBehaviour{
     }
 
     private void Start() {
-        GenerateWave();
-        // nightTime = enemyToSpawn.Count * spawnDelay;
-        nightTime = 10;
-        nightCountDown = nightTime;
-        noonCountDown = noonTime;
+        timer = noonTime;
     }
-    private void Update() {
-        //intensity 0.7
-        noonCountDown -= Time.deltaTime;
-        
-        print(noonCountDown);
-        if(noonCountDown <= 0){
-            worldLight.GetComponent<Animator>().SetTrigger("switch");
-
-            noonCountDown = nightTime;
-
-            // worldLight.GetComponent<Animator>().Play("daytonight");
-            // nightCountDown = nightTime; 
-            // GenerateWave();
+    private void Update() { 
+        if(noon) {
+            timer -= Time.deltaTime;
+            if(timer<=0) {
+                worldLight.GetComponent<Animator>().SetTrigger("switch");
+                noon = !noon;
+                GenerateWave();
+            }   
         }
-        // nightCountDown-= Time.deltaTime;
-        // if(enemySpawned.Count == 0 || nightCountDown <= 0){
-        // }
         
-        
-        
+        if(enemyToSpawn.Count <= 0 && !noon & enemySpawned.Count <= 0){
+            worldLight.GetComponent<Animator>().SetTrigger("switch");
+            noon = !noon;
+            timer = noonTime;
+        }   
     }
     public void GenerateWave(){
-
         currentNight++;
-        waveValue = currentNight * 20; 
+        waveValue = currentNight * 10; 
         GenerateEnemies();
         coroutineControl = true;
     }
@@ -70,6 +58,7 @@ public class WaveManager : MonoBehaviour{
         List<Enemy> temp = new List<Enemy>();
         while(waveValue >= 0){
             Enemy enemy = enemyList[Random.Range(0,enemyList.Count-1)];
+            
             temp.Add(enemy);
             waveValue -= enemy.value;
         }
