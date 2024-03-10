@@ -53,10 +53,10 @@ public class WaveManager : MonoBehaviour{
     }
     public void GenerateWave(){
         currentNight++;
-        waveValue = currentNight * 10; 
-        // GenerateEnemies();
+        waveValue = currentNight * 25; 
+        
         spawnTimer = spawnDelay;
-        // coroutineControl = true;
+      
     }
     public void SpawnEnemy(Transform spawnPoint, Transform targetPos){
         if(waveValue >= 0 ){
@@ -75,14 +75,7 @@ public class WaveManager : MonoBehaviour{
             enemySpawned.Add(enemyClone);   
             enemyClone.GetComponent<EnemyMovement>().SetTargetPosition(targetPos);
         }
-        // List<Enemy> temp = new List<Enemy>();
-        // while(waveValue >= 0){
-        //     Enemy enemy = enemyList[Random.Range(0,enemyList.Count-1)];
-            
-        //     temp.Add(enemy);
-        //     waveValue -= enemy.value;
-        // }
-        // enemyToSpawn = temp;
+     
     }
 
     [System.Serializable]

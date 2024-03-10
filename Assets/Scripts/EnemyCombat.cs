@@ -16,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
     /*--------animation variable ------------*/
     private string wolfAttack_parameter = "wolf_attack";
     private string wolfMiniBossAttack_parameter = "wolf_mini_boss_attack";
+    private string wolfBossAttack_parameter = "wolf_boss_attack";
     private string currentAnimation;
     
     private void Start() {
@@ -53,8 +54,10 @@ public class EnemyCombat : MonoBehaviour
             if(enemyName == EnemyName.WOLF_MINIBOSS){
                 ChangeAnimation(wolfMiniBossAttack_parameter);
             }
+            if(enemyName == EnemyName.WOLF_BOSS){
+                ChangeAnimation(wolfBossAttack_parameter);
+            }
             attackTimer = attackCooldown;
-            // print(hit.distance);
         }
     }
 
