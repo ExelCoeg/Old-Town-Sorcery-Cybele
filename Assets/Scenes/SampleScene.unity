@@ -4487,8 +4487,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coroutineControl: 0
   enemyList:
+  - enemyGameObject: {fileID: 4954507261087559687, guid: 47dc410d898627f42bb1b39b4ad1afdc, type: 3}
+    value: 1
+  - enemyGameObject: {fileID: 4571439199485852626, guid: b5e3ae0343bf58546a7381b44ef51cb6, type: 3}
+    value: 60
   - enemyGameObject: {fileID: 259426018205498454, guid: 4e93e44d5fda56346a2623b77e74fc9f, type: 3}
-    value: 2
+    value: 90
   enemySpawned: []
   spawnDelay: 2
   noonTime: 1
