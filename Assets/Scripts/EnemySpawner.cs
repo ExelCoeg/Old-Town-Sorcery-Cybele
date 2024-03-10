@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] Transform targetPos;
+    public Transform targetPos;
     
     private void Update() {
         
@@ -21,9 +21,9 @@ public class EnemySpawner : MonoBehaviour
             spawn++;
             // print("spawn time: " + spawn);
             
-            WaveManager.Enemy enemy = WaveManager.instance.enemyToSpawn[Random.Range(0,WaveManager.instance.enemyToSpawn.Count-1)];
+            GameObject enemy = WaveManager.instance.enemyToSpawn[Random.Range(0,WaveManager.instance.enemyToSpawn.Count-1)];
             if(enemy != null){
-                GameObject enemyClone =  Instantiate(enemy.enemyGameObject, transform.position, Quaternion.identity);
+                GameObject enemyClone =  Instantiate(enemy, transform.position, Quaternion.identity);
                 enemyClone.GetComponent<EnemyMovement>().SetTargetPosition(targetPos);
                 WaveManager.instance.enemySpawned.Add(enemyClone);
                 WaveManager.instance.enemyToSpawn.Remove(enemy);

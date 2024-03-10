@@ -8,7 +8,7 @@ public class WaveManager : MonoBehaviour{
     public static WaveManager instance;
     public bool coroutineControl;
     public List<Enemy> enemyList = new List<Enemy>();
-    public List<Enemy> enemyToSpawn = new List<Enemy>();
+    public List<GameObject> enemyToSpawn = new List<GameObject>();
     public List<GameObject> enemySpawned = new List<GameObject>();
     public float spawnDelay;
     int currentNight;
@@ -55,11 +55,11 @@ public class WaveManager : MonoBehaviour{
         coroutineControl = true;
     }
     public void GenerateEnemies(){
-        List<Enemy> temp = new List<Enemy>();
+        List<GameObject> temp = new List<GameObject>();
         while(waveValue >= 0){
             Enemy enemy = enemyList[Random.Range(0,enemyList.Count-1)];
             
-            temp.Add(enemy);
+            temp.Add(enemy.enemyGameObject);
             waveValue -= enemy.value;
         }
         enemyToSpawn = temp;
