@@ -4,7 +4,7 @@ public class EnemyCombat : MonoBehaviour
 {
     EnemyName enemyName;
     [Header("Attack Attributes")]
-    public int attackDamage;
+    public float attackDamage;
     float attackTimer;
     [SerializeField] float attackCooldown;
     [SerializeField] float attackRange = 1.5f;
@@ -33,19 +33,17 @@ public class EnemyCombat : MonoBehaviour
         if(hit.collider != null && attackTimer <= 0){
             attackTimer = attackCooldown;
             var player = hit.collider.gameObject.GetComponent<PlayerHealth>();
-            player.currentHealth -=  attackDamage - (int) hit.distance ;
-
+            
             if(hit.distance >= attackRange - 0.2f){
-                player.currentHealth -= attackDamage * 80/100;
-                print("player got hit for "+ attackDamage * 80/100);
+                
+                player.TakeDamage(attackDamage *  80f/100 - (float) hit.distance);
             }
             if(hit.distance >= attackRange * 0.5f){
-                player.currentHealth -= attackDamage * 90/100;
-                print("player got hit for "+ attackDamage * 90/100);
+                player.TakeDamage(attackDamage *  90f/100 - (float) hit.distance);
             }
             if(hit.distance < attackRange * 0.5f){
-                player.currentHealth -= attackDamage;
-                print("player got hit for "+ attackDamage);
+                player.TakeDamage(attackDamage - (float) hit.distance);
+
             }
             player.ResetTaggedTimer();
             if(enemyName == EnemyName.WOLF){

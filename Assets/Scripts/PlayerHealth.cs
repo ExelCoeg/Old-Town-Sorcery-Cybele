@@ -1,6 +1,5 @@
 using UnityEngine.UI;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -56,5 +55,9 @@ public class PlayerHealth : MonoBehaviour
     public void ResetTaggedTimer(){
         taggedTimer = taggedUntilRegenTime;
     }
-    
+    public void TakeDamage(float amount){
+        currentHealth -= (int)(amount - GetComponent<PlayerDefense>().currentDefense);
+        
+    }   
+
 }

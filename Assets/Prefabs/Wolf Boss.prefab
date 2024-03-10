@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186558940d687354085c3136b4b27da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 55
-  attackCooldown: 0
+  attackDamage: 70
+  attackCooldown: 1
   attackRange: 1.5
   attackPoint: {fileID: 1452660613153598899}
   playerLayer:
