@@ -67,8 +67,10 @@ public class DamageOverTime : MonoBehaviour
             var effect = foundEffect.GetComponent<ParticleSystem>();
             
             if (!effect.isPlaying) effect.Play();
+            
             Destroy(gameObject, aoeTime);
         }
+        
     }
 
 
