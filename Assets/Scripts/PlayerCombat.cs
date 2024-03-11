@@ -98,8 +98,11 @@ public class PlayerCombat : MonoBehaviour
                 currentPotion++;
             }
             if (currentPotion < 0) currentPotion = 0;
+            if(ownedPotions.Count == 0){
+                NextState();
+            }
             if (currentPotion >= ownedPotions.Count) currentPotion = ownedPotions.Count - 1;
-            if (Input.GetMouseButtonDown(0)) 
+            if (Input.GetMouseButtonDown(0) && !onAnimation) 
             {
                 UsePotion(ownedPotions[currentPotion]);     
             }
@@ -187,11 +190,12 @@ public class PlayerCombat : MonoBehaviour
     void UsePotion(GameObject potion)
     {
         var throwable = potion.GetComponent<ThrowablePotion>();
+        var consummable = potion.GetComponent<ConsummablePotion>();
+        
         if(throwable){
             ThrowPotion(potion);
         }
         
-        var consummable = potion.GetComponent<ConsummablePotion>();
         if (consummable){
             ConsumePotion(potion);
             if(consummable.potionName == ConsummablePotionName.HEAL && !onAnimation) 
@@ -206,12 +210,21 @@ public class PlayerCombat : MonoBehaviour
     }
     void PlayerAnimation()
     {
-        if(onStates[0] && !onAnimation)
+        if(onStates[0] && !onAnimation || ownedPotions.Count == 0)
         {
             ChangeAnimation(idle_parameter);
         }
         
         if(onStates[2] && ownedPotions.Count > 0 && !onAnimation){
+            if(ownedPotions[currentPotion].name == "Defense Debuff Potion")
+            {
+                if(rb.velocity.x != 0){
+                    ChangeAnimation(onDefenseDebuffPotionWalk_parameter);
+                }
+                else{
+                    ChangeAnimation(onDefenseDebuffPotion_parameter);
+                }
+            } 
             if(ownedPotions[currentPotion].name =="Attack Buff Potion") 
             {
                 if(rb.velocity.x != 0 ){
@@ -230,20 +243,9 @@ public class PlayerCombat : MonoBehaviour
                     ChangeAnimation(onHealPotion_parameter);
                 }
             }
-            
-            if(ownedPotions[currentPotion].name == "Defense Debuff Potion")
-            {
-                if(rb.velocity.x != 0){
-                    ChangeAnimation(onDefenseDebuffPotionWalk_parameter);
-                }
-                else{
-                    ChangeAnimation(onDefenseDebuffPotion_parameter);
-                }
-            } 
-                
+           
         }
         
-
     }
     void ChangeAnimation(string newAnimation)
     {
@@ -255,16 +257,9 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            onStates[currentState] = false;
-            currentState++;
-            if(currentState >= onStates.Count)
-            {
-                currentState = 0;
-            }
-            onStates[currentState] = true;
-            
+            NextState();
         }
-        
+       
         onMelee = onStates[0];
         onSpell = onStates[1];
         onPotion = onStates[2];
@@ -272,5 +267,17 @@ public class PlayerCombat : MonoBehaviour
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(firePoint.position, attackRadius);
     }
+
+    void NextState(){
+        onStates[currentState] = false;
+        currentState++;
+        if(currentState >= onStates.Count)
+        {
+            currentState = 0;
+        }
+        
+        onStates[currentState] = true;
+    }
+    
     
 }
