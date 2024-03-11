@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 public class FireEffect : MonoBehaviour
@@ -14,7 +12,7 @@ public class FireEffect : MonoBehaviour
     }
     private void Start()
     {
-        ParticleSystem fireParticle = Instantiate(effect, new Vector2(firePoint.position.x,firePoint.position.y - 1f), Quaternion.identity);
+        ParticleSystem fireParticle = Instantiate(effect, new Vector2(firePoint.position.x,firePoint.position.y), Quaternion.identity);
         fireParticle.transform.SetParent(gameObject.transform);
     }
 }

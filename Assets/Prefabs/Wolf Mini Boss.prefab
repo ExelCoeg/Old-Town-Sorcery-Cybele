@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186558940d687354085c3136b4b27da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 20
+  attackDamage: 30
   attackCooldown: 4
   attackRange: 2
   attackPoint: {fileID: 7780209522867391420}

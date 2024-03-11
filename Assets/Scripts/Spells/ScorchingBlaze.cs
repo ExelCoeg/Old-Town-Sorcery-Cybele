@@ -23,6 +23,7 @@ public class ScorchingBlaze : MonoBehaviour
         if(hit.collider != null){
             var enemy = hit.collider.gameObject.GetComponent<EnemyHealth>();
             ParticleSystem scorchingBlazeEffect = Instantiate(effect, enemy.transform.position, Quaternion.identity);
+            
             if(scorchingBlazeEffect != null){
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 scorchingBlazeEffect.transform.SetParent(hit.collider.gameObject.transform);
@@ -31,7 +32,7 @@ public class ScorchingBlaze : MonoBehaviour
                 }
                 isPlaying = true;
                 enemy.currentHealth -= percentageAmount/100f * enemy.currentHealth  +  0.25f * player.GetComponent<PlayerCombat>().attackDamage;
-                scorchingBlazeEffect.GetComponent<DestroySelf>().Destroy(1);
+                scorchingBlazeEffect.GetComponent<DestroySelf>().Destroy(4);
             }
             Destroy(this);
         }

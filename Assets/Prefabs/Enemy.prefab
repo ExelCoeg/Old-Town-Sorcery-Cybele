@@ -210,7 +210,7 @@ MonoBehaviour:
   enemyName: 0
   speed: 2
   detectRadius: 2
-  targetPosition: {fileID: 4948051065644382341, guid: 9e090c4dd4deee24e90c3473919dc7e4, type: 3}
+  targetPos: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186558940d687354085c3136b4b27da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 8
+  attackDamage: 20
   attackCooldown: 3
   attackRange: 1.5
   attackPoint: {fileID: 3634760435019008277}

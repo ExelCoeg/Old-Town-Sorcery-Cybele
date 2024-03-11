@@ -57,7 +57,6 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(float amount){
         currentHealth -= (int)(amount - GetComponent<PlayerDefense>().currentDefense);
-        
     }   
 
 }

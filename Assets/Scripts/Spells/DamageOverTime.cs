@@ -1,6 +1,5 @@
 
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class DamageOverTime : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class DamageOverTime : MonoBehaviour
             MoveTowards(targetPos);
         }
 
-        if (Vector2.Distance(transform.position, targetPos) <= 0.1f) isActivated = true;
+        if (Vector2.Distance(transform.position, targetPos) <= 0.001f) isActivated = true;
 
     }
     void StartAOE()
@@ -70,7 +69,8 @@ public class DamageOverTime : MonoBehaviour
             
             Destroy(gameObject, aoeTime);
         }
-        
+        GetComponent<LightOff>().targetPos = targetPos;
+       
     }
 
 
