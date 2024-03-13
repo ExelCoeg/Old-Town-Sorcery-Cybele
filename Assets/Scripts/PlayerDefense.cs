@@ -10,5 +10,5 @@ public class PlayerDefense : MonoBehaviour
         currentDefense = maxDefense;
     }
 
-
+    
 }

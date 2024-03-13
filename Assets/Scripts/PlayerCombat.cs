@@ -148,14 +148,16 @@ public class PlayerCombat : MonoBehaviour
     void PlayerAttack()
     {
         isAttacking = true;
-        // float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-        // transform.eulerAngles = direction < 0 ? Vector2.up * -180: Vector2.zero; 
+    
         anim.SetTrigger(attack_parameter);
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(firePoint.position, attackRadius);
-        foreach(Collider2D enemy in enemies)
+        Collider2D[] hits= Physics2D.OverlapCircleAll(firePoint.position, attackRadius);
+        foreach(Collider2D hit in hits)
         {
-            if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
+            if (hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
+            if(hit.TryGetComponent<TreeHealth>(out TreeHealth tree)) tree.TakeDamage(attackDamage);
+            if(hit.TryGetComponent<Bush>(out Bush bush)) bush.TakeDamage(attackDamage);
         }
+        
     }
     void AimingAt()
     {
@@ -167,6 +169,8 @@ public class PlayerCombat : MonoBehaviour
         if (GetComponent<PlayerMovement>().isFacingRight) currentRotation.z = angle;
         else currentRotation.z = -angle;
         firePoint.localEulerAngles = currentRotation;
+
+
     }
    
     void UpdateCurrentCombatStateText()
