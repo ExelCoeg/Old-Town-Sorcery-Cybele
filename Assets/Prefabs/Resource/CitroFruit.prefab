@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5525908053416770254}
   - component: {fileID: 7538669852900184613}
   - component: {fileID: 6963376347309974243}
+  - component: {fileID: 6019919968794495237}
   m_Layer: 0
   m_Name: CitroFruit
   m_TagString: Untagged
@@ -134,3 +135,15 @@ CircleCollider2D:
   m_Offset: {x: 0.014953375, y: 0}
   serializedVersion: 2
   m_Radius: 0.3953272
+--- !u!114 &6019919968794495237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366262369307476370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fabbff8b332a214ab06c7080e250b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

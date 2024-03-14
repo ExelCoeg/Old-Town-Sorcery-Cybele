@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8455064377964411484}
   - component: {fileID: 1473124408525991200}
   - component: {fileID: 7059258016577198454}
+  - component: {fileID: 7635589929025073479}
   m_Layer: 0
   m_Name: HolyWater
   m_TagString: Untagged
@@ -144,3 +145,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holyWaterData: {fileID: 11400000, guid: b28e6849b2cbc384aa29579a71238275, type: 2}
+--- !u!114 &7635589929025073479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882286548536226477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fabbff8b332a214ab06c7080e250b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

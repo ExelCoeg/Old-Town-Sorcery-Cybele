@@ -23,15 +23,15 @@ public class Inventory : MonoBehaviour
         if(itemDictionary.TryGetValue(itemData, out InventoryItem item))
         {
             item.AddToStack();
-            print($"{item.itemData.displayName} total stack is now {item.stackSize}");
+            // print($"{item.itemData.displayName} total stack is now {item.stackSize}");
         }
         else
         {
-            print("there is no "+ itemData.displayName +"in dictionary");
+            // print("there is no "+ itemData.displayName +"in dictionary");
             InventoryItem newItem = new InventoryItem(itemData);
             inventory.Add(newItem);
             itemDictionary.Add(itemData,newItem);
-            print($"Added {itemData.displayName} to the inventory for the first time.");
+            // print($"Added {itemData.displayName} to the inventory for the first time.");
         }
     }
    

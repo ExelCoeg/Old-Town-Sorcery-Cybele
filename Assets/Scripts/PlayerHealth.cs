@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Slider healthSlider;
 
     float taggedTimer;
-    float taggedUntilRegenTime = 2f;
+    public float taggedUntilRegenTime = 2f;
     float regenTimer;
     
     // Start is called before the first frame update

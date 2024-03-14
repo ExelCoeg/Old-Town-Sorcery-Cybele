@@ -7,10 +7,10 @@ public class Crafting : MonoBehaviour
     float timerTwo;
     float timerThree;
     
-    float defenseDebuffPotionCraftTime;
-    float buffATKPotionCraftTime;
-    float healingPotionCraftTime;
-
+    float defenseDebuffPotionCraftTime = 2;
+    float buffATKPotionCraftTime = 2;
+    float healingPotionCraftTime = 2;
+    
     [SerializeField] GameObject defenseDebuffPotion;
     [SerializeField] GameObject buffATKPotion;
     [SerializeField] GameObject healingPotion;

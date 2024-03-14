@@ -36,7 +36,6 @@ public class WaveManager : MonoBehaviour{
             GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
             
             foreach(GameObject tree in trees){
-                print(tree.name);
                 if(!tree.GetComponent<TreeHealth>().isAlive ){
                     tree.GetComponent<TreeHealth>().currentHealth = tree.GetComponent<TreeHealth>().maxHealth;
                     tree.GetComponent<TreeHealth>().isAlive = true;

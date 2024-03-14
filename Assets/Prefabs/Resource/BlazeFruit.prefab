@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5946096268336731684}
   - component: {fileID: 3171211521305388552}
+  - component: {fileID: 7064973256434066832}
   - component: {fileID: 6863662629492871345}
   - component: {fileID: 7383222174093458259}
+  - component: {fileID: 2703006464722860299}
   m_Layer: 0
   m_Name: BlazeFruit
   m_TagString: Untagged
@@ -86,6 +88,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &7064973256434066832
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7396338554625568477}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &6863662629492871345
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +163,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitData: {fileID: 11400000, guid: 99ad8c3ae82d3ff4fad3f2e37051af53, type: 2}
+--- !u!114 &2703006464722860299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7396338554625568477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fabbff8b332a214ab06c7080e250b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

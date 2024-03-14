@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2938965735835476272}
   - component: {fileID: 7862918398156264567}
   - component: {fileID: 8317209931733639267}
+  - component: {fileID: 3354671356930173075}
   m_Layer: 0
   m_Name: LeisureBerry
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitData: {fileID: 11400000, guid: 68a1892a5a36c82478cd0b885399c43f, type: 2}
+--- !u!114 &3354671356930173075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26351920241891221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fabbff8b332a214ab06c7080e250b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

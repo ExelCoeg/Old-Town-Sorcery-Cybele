@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 public class HolyWater : MonoBehaviour, ICollectible
 {
     public static event HandleResourceCollected onHolyWaterCollected;
@@ -7,7 +6,7 @@ public class HolyWater : MonoBehaviour, ICollectible
 
     public ItemData holyWaterData;
 
-   
+        
     public void Collect(){
         print("Player collected Holy Water");
         Destroy(gameObject);
