@@ -1,6 +1,4 @@
-
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -12,12 +10,14 @@ public class Inventory : MonoBehaviour
         LeisureBerry.onLeisureBerryCollected += Add;
         HolyWater.onHolyWaterCollected += Add;
         CitroFruit.onCitroFruitCollected += Add;
+            
     }
     private void OnDisable() {
         BlazeFruit.onBlazeFruitCollected -= Add;
         LeisureBerry.onLeisureBerryCollected -= Add;
         HolyWater.onHolyWaterCollected -= Add;
         CitroFruit.onCitroFruitCollected -= Add;
+      
     }
     public void Add(ItemData itemData){
         if(itemDictionary.TryGetValue(itemData, out InventoryItem item))

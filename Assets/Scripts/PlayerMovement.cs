@@ -41,4 +41,7 @@ public class PlayerMovement : MonoBehaviour
         speed = Vector3.SqrMagnitude(rb.velocity);
         anim.SetFloat("speed", speed);
     }
+
+
+   
 }

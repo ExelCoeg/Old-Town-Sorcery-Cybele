@@ -10,5 +10,6 @@ public class BlazeFruit : MonoBehaviour, ICollectible
         Destroy(gameObject);
         onBlazeFruitCollected?.Invoke(fruitData);
     }
+
  
 }

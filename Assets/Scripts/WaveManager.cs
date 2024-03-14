@@ -3,10 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class WaveManager : MonoBehaviour{
-
-
     public static WaveManager instance;
-    public bool coroutineControl;
     public List<Enemy> enemyList = new List<Enemy>();
     // public List<Enemy> enemyToSpawn = new List<Enemy>();
     public List<GameObject> enemySpawned = new List<GameObject>();
@@ -36,6 +33,18 @@ public class WaveManager : MonoBehaviour{
     private void Update() { 
         if(noon) {
             timer -= Time.deltaTime;
+            GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
+            
+            foreach(GameObject tree in trees){
+                print(tree.name);
+                if(!tree.GetComponent<TreeHealth>().isAlive ){
+                    tree.GetComponent<TreeHealth>().currentHealth = tree.GetComponent<TreeHealth>().maxHealth;
+                    tree.GetComponent<TreeHealth>().isAlive = true;
+                    tree.GetComponent<SpriteRenderer>().enabled = true;
+                    tree.GetComponent<BoxCollider2D>().enabled = true;
+                }
+            }
+            
             if(timer<=0) {
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;

@@ -12,7 +12,6 @@ public class PlayerCombat : MonoBehaviour
     /*---------- UI -------------*/
     [SerializeField] TextMeshProUGUI combatStateText;
 
-
     Vector2 mousePos;
 
     /*---------- spells -----------*/
@@ -122,7 +121,6 @@ public class PlayerCombat : MonoBehaviour
             if (currentSpell >= ownedSpells.Count) currentSpell = ownedSpells.Count - 1;
             if (ownedSpells.Count > 0 )
             {
-
                 if (Input.GetMouseButtonDown(0) && GetComponent<PlayerMana>().currentMana >= ownedSpells[currentSpell].manaCost)
                 {
                     
@@ -136,7 +134,6 @@ public class PlayerCombat : MonoBehaviour
                         spellCaster.SingleTargetCast(spell, spell.effect);
                     }
                     ChangeAnimation(playerCasting_parameter);
-                    
                 }
             }
         }
@@ -279,9 +276,6 @@ public class PlayerCombat : MonoBehaviour
         {
             currentState = 0;
         }
-        
         onStates[currentState] = true;
     }
-    
-    
 }

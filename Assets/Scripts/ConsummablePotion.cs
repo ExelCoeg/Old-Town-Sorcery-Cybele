@@ -8,6 +8,7 @@ public class ConsummablePotion : MonoBehaviour, IConsummable
     public ConsummablePotionName potionName;
     public ConsummablePotionName PotionName { get { return potionName; } }
 
+    
 
     public void Use()
     {

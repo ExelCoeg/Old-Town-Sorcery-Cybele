@@ -3,19 +3,24 @@ using UnityEngine;
 
 public class TreeHealth : MonoBehaviour, IDamagable
 {
-    float currentHealth;
-    [SerializeField] float maxHealth;
+    public float currentHealth;
+    public float maxHealth;
+    public bool isAlive = true;
 
     [SerializeField] GameObject[] fruits;
     private void Start() {
         currentHealth = maxHealth;
     }
     private void Update() {
-        if(currentHealth<= 0){
+        if(currentHealth<= 0 && isAlive){
             //add sound effect
             //instantiate blaze fruit or citro fruit
             Instantiate(fruits[Random.Range(0,fruits.Length)],transform.position,Quaternion.identity);
-            gameObject.SetActive(false);
+            isAlive = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
+
+
         }
     }
     public void TakeDamage(float amount){
