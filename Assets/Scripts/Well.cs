@@ -1,12 +1,17 @@
-using Unity.Mathematics;
 using UnityEngine;
-
 public class Well : MonoBehaviour, IInteractable {
-    float cooldown;
+    public float cooldown;
+    
     [SerializeField] GameObject holyWater;
+
+    [SerializeField] GameObject wellCooldownUI;
     private void Update() {
         if(cooldown >= 0){
             cooldown -= Time.deltaTime;
+            wellCooldownUI.SetActive(true);
+        }
+        else{
+            wellCooldownUI.SetActive(false);
         }
     }
     public void Interact(){
@@ -15,4 +20,6 @@ public class Well : MonoBehaviour, IInteractable {
             cooldown = 1f;
         }       
     }
+
+
 }
