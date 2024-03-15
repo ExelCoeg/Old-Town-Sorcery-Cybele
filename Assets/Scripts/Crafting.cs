@@ -33,17 +33,8 @@ public class Crafting : MonoBehaviour
     bool isAvailable_ddp = false;
     bool isAvailable_bap = false;
     bool isAvailable_hp = false;
-    // Update is called once per frame
-    // private void Start() {
-    //     timerOne = defenseDebuffPotionCraftTime;
-    //     timerTwo = buffATKPotionCraftTime;
-    //     timerThree = healingPotionCraftTime;
-    // }
     void Update()
     {
-        print("isAvailable_ddp: " + isAvailable_ddp);
-        print("isAvailable_bap: " + isAvailable_bap);
-        print("isAvailable_hp: " + isAvailable_hp);
        //ngecek kalau bahannya ready dan lagi ga crafting
        // kalau ready, bikin cooldown iconnya jadi 0
        if(timerOne <= 0){
