@@ -43,7 +43,7 @@ public class SpellCaster : MonoBehaviour
     {
         if(spell != null)
         {
-            if(spell.name == "Fireball" && fireballCooldown <= 0)
+            if(spell.name == "Fireball" && fireballCooldownTimer <= 0)
             {
                 isAvailable_Fireball = false;
                 print("casting: " + spell.spellName);
@@ -69,9 +69,9 @@ public class SpellCaster : MonoBehaviour
     public void SingleTargetCast(SingleTargetSpell spell, ParticleSystem effect)
     {
         if(spell!= null){
-            if(spell.name == "Scorching Blaze" && scorchingCooldown <= 0){
+            if(spell.name == "Scorching Blaze" && scorchingCooldownTimer <= 0){
                 isAvailable_ScorchingBlaze = false;
-                scorchingCooldownTimer = scorchingCooldown= spell.cooldownTime;
+                scorchingCooldownTimer = scorchingCooldown = spell.cooldownTime;
                 scorchingBlazeCooldownIcon.fillAmount = 1;
                 GameObject player=  GameObject.FindGameObjectWithTag("Player");
                 var script = player.AddComponent<ScorchingBlaze>();
