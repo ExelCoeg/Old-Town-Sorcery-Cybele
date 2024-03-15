@@ -10,12 +10,12 @@ public class PlayerLight : MonoBehaviour
     void Update()
     {
         if(WaveManager.instance.noon == false && !on){
-            print("switching on");
+            // print("switching on");
             on = !on;
             playerLight.GetComponent<Animator>().SetTrigger("switch");
         }
         if(WaveManager.instance.noon == true && on){
-            print("switching off");
+            // print("switching off");
             on = !on;
             playerLight.GetComponent<Animator>().SetTrigger("switch");
         }
