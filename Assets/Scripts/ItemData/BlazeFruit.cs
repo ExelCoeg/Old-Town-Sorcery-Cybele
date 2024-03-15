@@ -6,7 +6,6 @@ public class BlazeFruit : MonoBehaviour, ICollectible
     public delegate void HandleResourceCollected(ItemData itemData);
     public ItemData fruitData;
     public void Collect(){
-        print("Player collected Blaze Fruit");
         Destroy(gameObject);
         onBlazeFruitCollected?.Invoke(fruitData);
     }

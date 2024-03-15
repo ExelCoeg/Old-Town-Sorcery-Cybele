@@ -8,7 +8,6 @@ public class HolyWater : MonoBehaviour, ICollectible
 
         
     public void Collect(){
-        print("Player collected Holy Water");
         Destroy(gameObject);
         onHolyWaterCollected?.Invoke(holyWaterData);
     }

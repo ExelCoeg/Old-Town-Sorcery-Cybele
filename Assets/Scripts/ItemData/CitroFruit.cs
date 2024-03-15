@@ -9,7 +9,6 @@ public class CitroFruit : MonoBehaviour, ICollectible
 
    
     public void Collect(){
-        print("Player collected Citro Fruit");
         Destroy(gameObject);
         onCitroFruitCollected?.Invoke(fruitData);
     }

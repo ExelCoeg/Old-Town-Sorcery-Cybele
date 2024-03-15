@@ -3865,6 +3865,9 @@ MonoBehaviour:
   holyWaterData: {fileID: 11400000, guid: b28e6849b2cbc384aa29579a71238275, type: 2}
   inventory: {fileID: 1249405058}
   playerCombat: {fileID: 1056402576}
+  isAvailable_ddp: 0
+  isAvailable_bap: 0
+  isAvailable_hp: 0
 --- !u!1 &313293335
 GameObject:
   m_ObjectHideFlags: 0
