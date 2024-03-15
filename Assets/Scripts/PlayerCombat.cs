@@ -151,8 +151,7 @@ public class PlayerCombat : MonoBehaviour
         foreach(Collider2D hit in hits)
         {
             if (hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
-            if(hit.TryGetComponent<TreeHealth>(out TreeHealth tree)) tree.TakeDamage(attackDamage);
-            if(hit.TryGetComponent<Bush>(out Bush bush)) bush.TakeDamage(attackDamage);
+            if(hit.TryGetComponent<ResourceObjectHealth>(out ResourceObjectHealth resourceObject)) resourceObject.TakeDamage(attackDamage);
         }
         
     }

@@ -33,17 +33,6 @@ public class WaveManager : MonoBehaviour{
     private void Update() { 
         if(noon) {
             timer -= Time.deltaTime;
-            GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
-            
-            foreach(GameObject tree in trees){
-                if(!tree.GetComponent<TreeHealth>().isAlive ){
-                    tree.GetComponent<TreeHealth>().currentHealth = tree.GetComponent<TreeHealth>().maxHealth;
-                    tree.GetComponent<TreeHealth>().isAlive = true;
-                    tree.GetComponent<SpriteRenderer>().enabled = true;
-                    tree.GetComponent<BoxCollider2D>().enabled = true;
-                }
-            }
-            
             if(timer<=0) {
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;
@@ -56,6 +45,15 @@ public class WaveManager : MonoBehaviour{
             worldLight.GetComponent<Animator>().SetTrigger("switch");
             noon = !noon;
             timer = noonTime;
+            GameObject[] resourceObjects = GameObject.FindGameObjectsWithTag("Tree");
+            foreach(GameObject resourceObject in resourceObjects){
+                if(!resourceObject.GetComponent<ResourceObjectHealth>().isAlive){
+                    resourceObject.GetComponent<ResourceObjectHealth>().currentHealth = resourceObject.GetComponent<ResourceObjectHealth>().maxHealth;
+                    resourceObject.GetComponent<ResourceObjectHealth>().isAlive = true;
+                    resourceObject.GetComponent<SpriteRenderer>().enabled = true;
+                    resourceObject.GetComponent<BoxCollider2D>().enabled = true;
+                }
+            }
         }   
         
     }

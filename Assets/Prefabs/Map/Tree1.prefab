@@ -205,6 +205,6 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 75
   isAlive: 1
-  fruits:
+  drops:
   - {fileID: 7396338554625568477, guid: 08ce2bdda5a977c49980eb7d587f3a01, type: 3}
   - {fileID: 3366262369307476370, guid: d72b30311d1ceb84394e9fb530a35b45, type: 3}

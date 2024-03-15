@@ -1,20 +1,27 @@
 
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 public class Crafting : MonoBehaviour
 {
     float timerOne;
     float timerTwo;
     float timerThree;
+    [Header("Potions Crafting Time")]
+    public float defenseDebuffPotionCraftTime = 2;
+    public float buffATKPotionCraftTime = 2;
+    public float healingPotionCraftTime = 2;
+
+    [Header("Potion Cooldown Icons")]
+    public Image defenseDebuffPotionCooldownIcon;
+    public Image buffATKPotionCooldownIcon;
+    public Image healingPotionCooldownIcon;
     
-    float defenseDebuffPotionCraftTime = 2;
-    float buffATKPotionCraftTime = 2;
-    float healingPotionCraftTime = 2;
-    
+    [Header("Potion Game Objects")]
     [SerializeField] GameObject defenseDebuffPotion;
     [SerializeField] GameObject buffATKPotion;
     [SerializeField] GameObject healingPotion;
 
+    [Header("Fruit Datas")]
    public ItemData blazeFruitData;
    public ItemData citroFruitData;
    public ItemData leisureBerryData;
@@ -22,53 +29,63 @@ public class Crafting : MonoBehaviour
     public Inventory inventory;
     public PlayerCombat playerCombat;
 
+    public bool isAvailable_ddp = false;
+    public bool isAvailable_bap = false;
+    public bool isAvailable_hp = false;
     // Update is called once per frame
-    private void Start() {
-        timerOne = defenseDebuffPotionCraftTime;
-        timerTwo = buffATKPotionCraftTime;
-        timerThree = healingPotionCraftTime;
-    }
+    // private void Start() {
+    //     timerOne = defenseDebuffPotionCraftTime;
+    //     timerTwo = buffATKPotionCraftTime;
+    //     timerThree = healingPotionCraftTime;
+    // }
     void Update()
     {
+        // print("isAvailable_ddp: " + isAvailable_ddp);
+        // print("isAvailable_bap: " + isAvailable_bap);
+        // print("isAvailable_hp: " + isAvailable_hp);
+       //ngecek kalau bahannya ready dan lagi ga crafting
+       // kalau ready, bikin cooldown iconnya jadi 0
+     
         if(timerOne >= 0){
             timerOne -= Time.deltaTime;
+            defenseDebuffPotionCooldownIcon.fillAmount -= 1/defenseDebuffPotionCraftTime * Time.deltaTime;
+            inventory.Remove(leisureBerryData);
+            inventory.Remove(leisureBerryData);
+            inventory.Remove(holyWaterData);
             if(timerOne <= 0){
                 //add potion to player potion inventory
                 playerCombat.ownedPotions.Add(defenseDebuffPotion);
-                inventory.Remove(leisureBerryData);
-                inventory.Remove(leisureBerryData);
-                inventory.Remove(holyWaterData);
             }
         }
         if(timerTwo>=0){
             timerTwo -= Time.deltaTime;
+            buffATKPotionCooldownIcon.fillAmount -= 1/buffATKPotionCraftTime * Time.deltaTime;
+            inventory.Remove(blazeFruitData);
+            inventory.Remove(blazeFruitData);
+            inventory.Remove(holyWaterData);
             if(timerTwo <= 0){
                 //add potion to player potion inventory
                 playerCombat.ownedPotions.Add(buffATKPotion);
-               
-                inventory.Remove(blazeFruitData);
-                inventory.Remove(blazeFruitData);
-                inventory.Remove(holyWaterData);
-
             }   
         }
         if(timerThree >=0){
             timerThree -= Time.deltaTime;
+            healingPotionCooldownIcon.fillAmount -= 1/healingPotionCraftTime * Time.deltaTime;
+            inventory.Remove(citroFruitData);
+            inventory.Remove(citroFruitData);
+            inventory.Remove(holyWaterData);
             if(timerThree <= 0){
                 //add potion to player potion inventory
                 playerCombat.ownedPotions.Add(healingPotion);
-                inventory.Remove(citroFruitData);
-                inventory.Remove(citroFruitData);
-                inventory.Remove(holyWaterData);
             }
         }
     }
-
     public void CraftDefenseDebuffPotion(){
         if(timerOne <=0){
-            if(inventory.FindLeisureBerryStack() >= 2 && inventory.FindHolyWaterStack() >= 1 ){
+            if(inventory.FindLeisureBerryStack() >= 2 && inventory.FindHolyWaterStack() >= 1 && isAvailable_ddp){
                 timerOne = defenseDebuffPotionCraftTime;
-                
+                isAvailable_ddp = false;
+                defenseDebuffPotionCooldownIcon.fillAmount = 1;
             }
             else{
                 print("Crafting materials insufficient!");
@@ -82,10 +99,13 @@ public class Crafting : MonoBehaviour
     }   
     public void CraftBuffATKPotion(){
         if(timerTwo <= 0){
-            if(inventory.FindBlazeFruitStack() >= 2 && inventory.FindHolyWaterStack() >= 1 ){
+            if(inventory.FindBlazeFruitStack() >= 2 && inventory.FindHolyWaterStack() >= 1 && isAvailable_bap){
                 timerTwo = buffATKPotionCraftTime;
+                isAvailable_bap = false;
+                buffATKPotionCooldownIcon.fillAmount = 1;
             }
             else{
+
                 print("Crafting materials insufficient!");
                 print("Blaze Fruit: " + inventory.FindBlazeFruitStack());
                 print("Holy Water: " + inventory.FindHolyWaterStack());
@@ -94,13 +114,13 @@ public class Crafting : MonoBehaviour
          else{
             print("Attack Buff Potion is crafting!");
         }
-        
-        
     }
     public void CraftHealingPotion(){
         if(timerThree <= 0){
-            if(inventory.FindCitroFruitStack() >= 2 && inventory.FindHolyWaterStack() >= 1 ){
+            if(inventory.FindCitroFruitStack() >= 2 && inventory.FindHolyWaterStack() >= 1 && isAvailable_hp){
                 timerThree = healingPotionCraftTime;
+                isAvailable_hp = false;
+                healingPotionCooldownIcon.fillAmount = 1;
             }
             else{
                 print("Crafting materials insufficient!");

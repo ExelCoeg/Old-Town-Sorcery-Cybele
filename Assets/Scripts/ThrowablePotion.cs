@@ -34,7 +34,6 @@ public class ThrowablePotion : MonoBehaviour, IThrowable
                     potionScript.init(aoeRadius, decreaseAmount, disappearTime);
                 }
             }
-        
         }
     }
     public void Launch(Vector2 targetPos, float speed)
