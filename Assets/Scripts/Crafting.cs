@@ -7,6 +7,8 @@ public class Crafting : MonoBehaviour
     float timerOne;
     float timerTwo;
     float timerThree;
+
+    
     [Header("Potions Crafting Time")]
     public float defenseDebuffPotionCraftTime = 2;
     public float buffATKPotionCraftTime = 2;
@@ -23,10 +25,10 @@ public class Crafting : MonoBehaviour
     [SerializeField] GameObject healingPotion;
 
     [Header("Fruit Datas")]
-   public ItemData blazeFruitData;
-   public ItemData citroFruitData;
-   public ItemData leisureBerryData;
-   public ItemData holyWaterData;
+    public ItemData blazeFruitData;
+    public ItemData citroFruitData;
+    public ItemData leisureBerryData;
+    public ItemData holyWaterData;
     public Inventory inventory;
     public PlayerCombat playerCombat;
 
@@ -35,6 +37,9 @@ public class Crafting : MonoBehaviour
     bool isAvailable_hp = false;
     void Update()
     {
+
+
+
        //ngecek kalau bahannya ready dan lagi ga crafting
        // kalau ready, bikin cooldown iconnya jadi 0
        if(timerOne <= 0){
