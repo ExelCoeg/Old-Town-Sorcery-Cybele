@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -17,6 +18,9 @@ public class WaveManager : MonoBehaviour{
     public float noonTime;
     public bool noon = true;
 
+    public TextMeshProUGUI dayText;
+    public TextMeshProUGUI timeText;
+
     public Light2D worldLight;
     private void Awake() {
         if(instance == null){
@@ -31,6 +35,9 @@ public class WaveManager : MonoBehaviour{
         timer = noonTime;
     }
     private void Update() { 
+        if(noon) dayText.text = "Noon";
+        else dayText.text = "Night";
+        
         if(noon) {
             timer -= Time.deltaTime;
             if(timer<=0) {

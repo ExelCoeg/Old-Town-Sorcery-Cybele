@@ -24,13 +24,10 @@ public class Crafting : MonoBehaviour
     [SerializeField] GameObject buffATKPotion;
     [SerializeField] GameObject healingPotion;
 
-    [Header("Fruit Datas")]
-    public ItemData blazeFruitData;
-    public ItemData citroFruitData;
-    public ItemData leisureBerryData;
-    public ItemData holyWaterData;
-    public Inventory inventory;
+
     public PlayerCombat playerCombat;
+    public Inventory inventory;
+    public ItemList itemList;
 
     bool isAvailable_ddp = false;
     bool isAvailable_bap = false;
@@ -76,46 +73,46 @@ public class Crafting : MonoBehaviour
         
 
         // is crafting
-        if(timerOne >= 0){
+        if(timerOne > 0){
             isAvailable_ddp = false;
             timerOne -= Time.deltaTime;
             defenseDebuffPotionCooldownIcon.fillAmount -= 1/defenseDebuffPotionCraftTime * Time.deltaTime;
 
 
             if(timerOne <= 0){
-                //add potion to player potion inventory
-                inventory.Remove(leisureBerryData);
-                inventory.Remove(leisureBerryData);
-                inventory.Remove(holyWaterData);
+                inventory.Remove(itemList.leisureBerryData);
+                inventory.Remove(itemList.leisureBerryData);
+                inventory.Remove(itemList.holyWaterData);
                 playerCombat.ownedPotions.Add(defenseDebuffPotion);
+                inventory.Add(itemList.defenseDebuffPotionData);
             }
         }
-        if(timerTwo>=0){
+        if(timerTwo>0){
             isAvailable_bap = false;
             timerTwo -= Time.deltaTime;
             buffATKPotionCooldownIcon.fillAmount -= 1/buffATKPotionCraftTime * Time.deltaTime;
 
 
             if(timerTwo <= 0){
-                //add potion to player potion inventory
-                inventory.Remove(blazeFruitData);
-                inventory.Remove(blazeFruitData);
-                inventory.Remove(holyWaterData);
+                inventory.Remove(itemList.blazeFruitData);
+                inventory.Remove(itemList.blazeFruitData);
+                inventory.Remove(itemList.holyWaterData);
                 playerCombat.ownedPotions.Add(buffATKPotion);
+                inventory.Add(itemList.buffATKPotionData);
             }   
         }
-        if(timerThree >=0){
+        if(timerThree >0){
             isAvailable_hp = false;
             timerThree -= Time.deltaTime;
             healingPotionCooldownIcon.fillAmount -= 1/healingPotionCraftTime * Time.deltaTime;
 
 
             if(timerThree <= 0){
-                //add potion to player potion inventory
-                inventory.Remove(citroFruitData);
-                inventory.Remove(citroFruitData);
-                inventory.Remove(holyWaterData);
+                inventory.Remove(itemList.citroFruitData);
+                inventory.Remove(itemList.citroFruitData);
+                inventory.Remove(itemList.holyWaterData);
                 playerCombat.ownedPotions.Add(healingPotion);
+                inventory.Add(itemList.healingPotionData);
             }
         }
     }

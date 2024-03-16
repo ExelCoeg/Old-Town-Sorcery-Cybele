@@ -41,6 +41,12 @@ public class PlayerCombat : MonoBehaviour
     bool onMelee = true;
     bool onSpell = false;
     bool onPotion = false;
+
+
+    /*----- Inventory & item data ------*/
+
+    public Inventory inventory;
+    public ItemList itemList;
     /*
      onStates[0] = onMelee
      onStates[1] = onSpell
@@ -105,6 +111,8 @@ public class PlayerCombat : MonoBehaviour
             {
                 UsePotion(ownedPotions[currentPotion]);     
             }
+
+            
         }
 
         if (onSpell)
@@ -153,7 +161,6 @@ public class PlayerCombat : MonoBehaviour
             if (hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
             if(hit.TryGetComponent<ResourceObjectHealth>(out ResourceObjectHealth resourceObject)) resourceObject.TakeDamage(attackDamage);
         }
-        
     }
     void AimingAt()
     {
@@ -165,8 +172,6 @@ public class PlayerCombat : MonoBehaviour
         if (GetComponent<PlayerMovement>().isFacingRight) currentRotation.z = angle;
         else currentRotation.z = -angle;
         firePoint.localEulerAngles = currentRotation;
-
-
     }
    
     void UpdateCurrentCombatStateText()
@@ -191,8 +196,8 @@ public class PlayerCombat : MonoBehaviour
     {
         var throwable = potion.GetComponent<ThrowablePotion>();
         var consummable = potion.GetComponent<ConsummablePotion>();
-        
         if(throwable){
+            
             ThrowPotion(potion);
         }
         
@@ -205,6 +210,15 @@ public class PlayerCombat : MonoBehaviour
             }
         }
         ownedPotions.Remove(potion);
+        if(potion.name == "Defense Debuff Potion"){
+            inventory.Remove(itemList.defenseDebuffPotionData);
+        }
+        if(potion.name == "Healing Potion"){
+            inventory.Remove(itemList.healingPotionData);
+        }
+        if(potion.name == "Buff Attack Potion"){
+            inventory.Remove(itemList.buffATKPotionData);
+        }
         currentPotion--;
         currentPotion = 0;
     }

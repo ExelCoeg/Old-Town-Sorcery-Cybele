@@ -12,7 +12,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         if(currentHealth <= 0.1)
         {
-            Destroy(gameObject);
+            WaveManager.instance.enemySpawned.Remove(gameObject);
+            Destroy(gameObject,0.5f);
             //death animation
         }
     }
@@ -23,8 +24,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         }
         currentHealth -= damageAmount - GetComponent<EnemyDefense>().currentDefense;
     }
-    private void OnDestroy() {
-            WaveManager.instance.enemySpawned.Remove(gameObject);
-        
-    }
+    // private void OnDestroy() {
+    //     WaveManager.instance.enemySpawned.Remove(gameObject);
+    // }
 }

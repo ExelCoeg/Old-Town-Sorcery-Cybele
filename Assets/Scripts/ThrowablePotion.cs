@@ -1,5 +1,4 @@
 
-using System.Threading;
 using UnityEngine;
 
 public class ThrowablePotion : MonoBehaviour, IThrowable
@@ -10,7 +9,7 @@ public class ThrowablePotion : MonoBehaviour, IThrowable
     float timer;
     public ThrowablePotionName potionName;
     public ThrowablePotionName PotionName { get { return PotionName; } }
-
+    
     Vector2 targetPos;
     float speed;
     bool isActivated = false;
@@ -34,6 +33,7 @@ public class ThrowablePotion : MonoBehaviour, IThrowable
                     potionScript.init(aoeRadius, decreaseAmount, disappearTime);
                 }
             }
+
         }
     }
     public void Launch(Vector2 targetPos, float speed)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8288346726991924746}
   - component: {fileID: 3496661276128775402}
   m_Layer: 0
-  m_Name: Attack Buff Potion
+  m_Name: Buff Attack Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

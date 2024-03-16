@@ -76,4 +76,29 @@ public class Inventory : MonoBehaviour
         }
         return 0;
     }
+
+    public int FindHealingPotionStack(){
+        foreach(var item in inventory){
+            if(item.itemData.displayName == "Healing Potion"){
+                return item.stackSize;
+            }
+        }
+        return 0;
+    }
+    public int FindBuffATKPotionStack(){
+        foreach(var item in inventory){
+            if(item.itemData.displayName == "Buff Attack Potion"){
+                return item.stackSize;
+            }
+        }
+        return 0;
+    }
+    public int FindDefenseDebuffPotionStack(){
+        foreach(var item in inventory){
+            if(item.itemData.displayName == "Defense Debuff Potion"){
+                return item.stackSize;
+            }
+        }
+        return 0;
+    }
 }
