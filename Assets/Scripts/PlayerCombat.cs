@@ -21,7 +21,7 @@ public class PlayerCombat : MonoBehaviour
 
     /*---------- potions ----------*/
     [Header("Potions Attributes")]
-    int currentPotion;
+    public int currentPotion;
     public int throwSpeed;
     public List<GameObject> ownedPotions = new List<GameObject>();
 
@@ -38,9 +38,9 @@ public class PlayerCombat : MonoBehaviour
 
     int currentState = 0;
     [SerializeField] List<bool> onStates = new List<bool>();
-    bool onMelee = true;
-    bool onSpell = false;
-    bool onPotion = false;
+    public bool onMelee = true;
+    public bool onSpell = false;
+    public bool onPotion = false;
 
 
     /*----- Inventory & item data ------*/
