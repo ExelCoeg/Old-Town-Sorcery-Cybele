@@ -43,10 +43,10 @@ public class PlayerHealth : MonoBehaviour
         }
         if(currentHealth > maxHealth) currentHealth = maxHealth;
         healthSlider.value = currentHealth;
-        // if (currentHealth <= 0)
-        // {
-        //     Destroy(gameObject);
-        // }
+        if (currentHealth <= 0)
+        {
+            WaveManager.instance.Lose();
+        }
     }
     void IncreaseHealth(){
         currentHealth += regenAmount;

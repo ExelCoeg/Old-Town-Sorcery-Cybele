@@ -239,7 +239,7 @@ public class PlayerCombat : MonoBehaviour
                     ChangeAnimation(onDefenseDebuffPotion_parameter);
                 }
             } 
-            if(ownedPotions[currentPotion].name =="Attack Buff Potion") 
+            if(ownedPotions[currentPotion].name =="Buff Attack Potion") 
             {
                 if(rb.velocity.x != 0 ){
                     ChangeAnimation(onBuffAttackPotionWalk_parameter);

@@ -5,23 +5,33 @@ using UnityEngine.Rendering.Universal;
 
 public class WaveManager : MonoBehaviour{
     public static WaveManager instance;
+    [Header("Enemy Lists")]
     public List<Enemy> enemyList = new List<Enemy>();
     // public List<Enemy> enemyToSpawn = new List<Enemy>();
     public List<GameObject> enemySpawned = new List<GameObject>();
+    public int multiplier;
+    [Header("Wave Attributes")]
     public float spawnDelay;
     private float spawnTimer;
     int currentNight;
     private int waveValue;
-    
+
 
     private float timer;
     public float noonTime;
     public bool noon = true;
 
+    [Header("Texts")]
     public TextMeshProUGUI dayText;
-    public TextMeshProUGUI timeText;
+    // public TextMeshProUGUI timeText;
+    [Header("UI")]
+    public GameObject WinUI;
+    public GameObject LoseUI;
 
+    [Header("World Light")]
     public Light2D worldLight;
+
+    
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -66,7 +76,7 @@ public class WaveManager : MonoBehaviour{
     }
     public void GenerateWave(){
         currentNight++;
-        waveValue = currentNight * 25; 
+        waveValue = currentNight * multiplier; 
         
         spawnTimer = spawnDelay;
       
@@ -77,10 +87,15 @@ public class WaveManager : MonoBehaviour{
         }
         while(waveValue >= 0 && spawnTimer <= 0){
             Enemy enemy = enemyList[Random.Range(0,enemyList.Count)];
+            if(waveValue < multiplier && enemySpawned.Count ==0){
+                waveValue = 0;
+                break;
+            }
             if(enemy.value > waveValue){
                 spawnTimer = 0.1f;
                 break;
             }
+            
             
             GameObject enemyClone = Instantiate(enemy.enemyGameObject,spawnPoint.position,Quaternion.identity);
             waveValue -= enemy.value;
@@ -90,7 +105,17 @@ public class WaveManager : MonoBehaviour{
         }
      
     }
+    public void Win(){
+        Time.timeScale = 0;
+        //win ui ->go to main menu
+        WinUI.SetActive(true);
 
+    }
+    public void Lose(){
+        Time.timeScale = 0;
+        LoseUI.SetActive(true);
+        //lose ui -> go to main menu or retry
+    }
     [System.Serializable]
     public class Enemy{
         public GameObject enemyGameObject;

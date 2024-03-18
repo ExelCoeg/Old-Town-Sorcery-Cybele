@@ -12,6 +12,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         if(currentHealth <= 0.1)
         {
+            if(gameObject.name == "Wolf Boss"){
+                WaveManager.instance.Win();
+                
+            }
             WaveManager.instance.enemySpawned.Remove(gameObject);
             Destroy(gameObject,0.5f);
             //death animation
