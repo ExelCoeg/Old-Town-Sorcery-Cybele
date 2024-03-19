@@ -25,7 +25,6 @@ public class ThrowablePotion : MonoBehaviour, IThrowable
         }
         if (Vector2.Distance(targetPos, transform.position) <= 0.1f)
         { 
-        
             if(potionName== ThrowablePotionName.DEFENSE_DEBUFF)
             {
                 if(TryGetComponent<DefenseDebuffPotion>(out DefenseDebuffPotion potionScript))
@@ -33,7 +32,6 @@ public class ThrowablePotion : MonoBehaviour, IThrowable
                     potionScript.init(aoeRadius, decreaseAmount, disappearTime);
                 }
             }
-
         }
     }
     public void Launch(Vector2 targetPos, float speed)

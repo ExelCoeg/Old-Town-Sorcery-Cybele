@@ -16,13 +16,13 @@ public class WaveManager : MonoBehaviour{
     int currentNight;
     private int waveValue;
 
-
     private float timer;
     public float noonTime;
     public bool noon = true;
 
     [Header("Texts")]
     public TextMeshProUGUI dayText;
+    public GameObject noonTimer;
     // public TextMeshProUGUI timeText;
     [Header("UI")]
     public GameObject WinUI;
@@ -50,15 +50,18 @@ public class WaveManager : MonoBehaviour{
         
         if(noon) {
             timer -= Time.deltaTime;
+            noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
             if(timer<=0) {
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;
                 GenerateWave();
+                noonTimer.SetActive(false);
             }   
         }
        
         
         if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
+            noonTimer.SetActive(true);
             worldLight.GetComponent<Animator>().SetTrigger("switch");
             noon = !noon;
             timer = noonTime;

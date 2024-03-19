@@ -14,7 +14,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         {
             if(gameObject.name == "Wolf Boss"){
                 WaveManager.instance.Win();
-                
             }
             WaveManager.instance.enemySpawned.Remove(gameObject);
             Destroy(gameObject,0.5f);
@@ -28,7 +27,5 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         }
         currentHealth -= damageAmount - GetComponent<EnemyDefense>().currentDefense;
     }
-    // private void OnDestroy() {
-    //     WaveManager.instance.enemySpawned.Remove(gameObject);
-    // }
+   
 }
