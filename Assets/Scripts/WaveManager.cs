@@ -53,6 +53,7 @@ public class WaveManager : MonoBehaviour{
             timer -= Time.deltaTime;
             noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
             if(timer<=0) {
+                AudioManager.instance.PlayMusic("night");
                 foreach(GameObject trap in traps) {
                     trap.SetActive(true);
                 }
@@ -65,6 +66,7 @@ public class WaveManager : MonoBehaviour{
        
         
         if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
+            AudioManager.instance.PlayMusic("noon");
             noonTimer.SetActive(true);
             worldLight.GetComponent<Animator>().SetTrigger("switch");
             noon = !noon;
