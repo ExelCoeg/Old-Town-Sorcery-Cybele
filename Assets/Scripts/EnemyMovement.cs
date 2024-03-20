@@ -58,11 +58,15 @@ public class EnemyMovement : MonoBehaviour
         GetComponent<Animator>().Play(newAnimation);
         currentAnimation = newAnimation;
     }
+    
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
     public void SetTargetPosition(Transform targetPos){
         this.targetPos = targetPos;
+    }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Trap")) other.GetComponent<Trap>().isActivated = true;
     }
 }

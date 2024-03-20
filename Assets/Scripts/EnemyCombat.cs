@@ -30,15 +30,6 @@ public class EnemyCombat : MonoBehaviour
         attackTimer -= Time.deltaTime;
         Vector2 direction = transform.rotation.eulerAngles.y == 180 ? Vector2.left : Vector2.right;
         
-        Collider2D hitDamagable = Physics2D.OverlapCircle(attackPoint.position, 0.5f, damagableLayer);
-        if(hitDamagable && attackTimer<= 0){
-            print("test");
-            IDamagable damagable = hitDamagable.gameObject.GetComponent<IDamagable>();
-            damagable.TakeDamage(attackDamage);
-            EnemyAnimation();
-            
-            attackTimer = attackCooldown;
-        }
         RaycastHit2D hit = Physics2D.Raycast(attackPoint.position, direction, attackRange, playerLayer);
         if(hit.collider != null && attackTimer <= 0){
             var player = hit.collider.gameObject.GetComponent<PlayerHealth>();
@@ -54,6 +45,15 @@ public class EnemyCombat : MonoBehaviour
             }
             EnemyAnimation();
             player.ResetTaggedTimer();
+            attackTimer = attackCooldown;
+        }
+        Collider2D hitDamagable = Physics2D.OverlapCircle(attackPoint.position, 1f, damagableLayer);
+        if(hitDamagable && attackTimer<= 0){
+            
+            IDamagable damagable = hitDamagable.gameObject.GetComponent<IDamagable>();
+            damagable.TakeDamage(attackDamage);
+            EnemyAnimation();
+            
             attackTimer = attackCooldown;
         }
         
@@ -72,7 +72,7 @@ public class EnemyCombat : MonoBehaviour
         }
     }
     private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(attackPoint.position, 2f);
+        Gizmos.DrawWireSphere(attackPoint.position, 1f);
     }
     
 }

@@ -15,7 +15,8 @@ public class WaveManager : MonoBehaviour{
     private float spawnTimer;
     int currentNight;
     private int waveValue;
-
+    [Header("Trap")]
+    public GameObject[] traps;
     private float timer;
     public float noonTime;
     public bool noon = true;
@@ -52,6 +53,9 @@ public class WaveManager : MonoBehaviour{
             timer -= Time.deltaTime;
             noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
             if(timer<=0) {
+                foreach(GameObject trap in traps) {
+                    trap.SetActive(true);
+                }
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;
                 GenerateWave();
