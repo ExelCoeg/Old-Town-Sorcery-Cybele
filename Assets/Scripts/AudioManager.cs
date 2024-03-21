@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour {
     public Sound[] musicSounds,sfxSounds;
     public AudioSource musicSource,sfxSource;
     public AudioMixer audioMixer;
-    public PlayerPause playerPause;
+   
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void Update() {
-        if(playerPause.pause){
+        if(GameManager.instance.pause){
             audioMixer.SetFloat("music",-80);
         }
         else{

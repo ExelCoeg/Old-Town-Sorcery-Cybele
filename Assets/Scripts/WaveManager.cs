@@ -32,7 +32,10 @@ public class WaveManager : MonoBehaviour{
 
     [Header("World Light")]
     public Light2D worldLight;
-
+    
+    [Header("Health Bar & Mana Bar")]
+    public GameObject healthBar;
+    public GameObject manaBar;
     
     private void Awake() {
         if(instance == null){
@@ -47,44 +50,53 @@ public class WaveManager : MonoBehaviour{
         timer = noonTime;
     }
     private void Update() { 
-        if(noon) dayText.text = "Noon";
-        else dayText.text = "Night";
-        
-        if(noon) {
-            timer -= Time.deltaTime;
-            timerForAM = timer; 
-            noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
-            if(timer<=0) {
-                AudioManager.instance.PlayMusic("night");
-                foreach(GameObject trap in traps) {
-                    trap.SetActive(true);
-                    trap.GetComponent<SpriteRenderer>().enabled = true;
-                }
+        if(!GameManager.instance.pause){
+            if(noon){
+                dayText.text = "Noon";
+                healthBar.SetActive(false);
+                manaBar.SetActive(false);
+            } 
+            else {
+                dayText.text = "Night";
+                healthBar.SetActive(true);
+                manaBar.SetActive(true);
+            }
+            if(noon) {
+                timer -= Time.deltaTime;
+                timerForAM = timer; 
+                noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
+                if(timer<=0) {
+                    AudioManager.instance.PlayMusic("night");
+                    foreach(GameObject trap in traps) {
+                        trap.SetActive(true);
+                        trap.GetComponent<SpriteRenderer>().enabled = true;
+                    }
+                    worldLight.GetComponent<Animator>().SetTrigger("switch");
+                    noon = !noon;
+                    GenerateWave();
+                    noonTimer.SetActive(false);
+                }   
+            }
+            if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
+
+                AudioManager.instance.PlayMusic("noon");
+                noonTimer.SetActive(true);
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;
-                GenerateWave();
-                noonTimer.SetActive(false);
+                timer = noonTime;
+                GameObject[] resourceObjects = GameObject.FindGameObjectsWithTag("Tree");
+                foreach(GameObject resourceObject in resourceObjects){
+                    if(!resourceObject.GetComponent<ResourceObjectHealth>().isAlive){
+                        resourceObject.GetComponent<ResourceObjectHealth>().currentHealth = resourceObject.GetComponent<ResourceObjectHealth>().maxHealth;
+                        resourceObject.GetComponent<ResourceObjectHealth>().isAlive = true;
+                        resourceObject.GetComponent<SpriteRenderer>().enabled = true;
+                        resourceObject.GetComponent<BoxCollider2D>().enabled = true;
+                    }
+                }
             }   
         }
        
         
-        if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
-
-            AudioManager.instance.PlayMusic("noon");
-            noonTimer.SetActive(true);
-            worldLight.GetComponent<Animator>().SetTrigger("switch");
-            noon = !noon;
-            timer = noonTime;
-            GameObject[] resourceObjects = GameObject.FindGameObjectsWithTag("Tree");
-            foreach(GameObject resourceObject in resourceObjects){
-                if(!resourceObject.GetComponent<ResourceObjectHealth>().isAlive){
-                    resourceObject.GetComponent<ResourceObjectHealth>().currentHealth = resourceObject.GetComponent<ResourceObjectHealth>().maxHealth;
-                    resourceObject.GetComponent<ResourceObjectHealth>().isAlive = true;
-                    resourceObject.GetComponent<SpriteRenderer>().enabled = true;
-                    resourceObject.GetComponent<BoxCollider2D>().enabled = true;
-                }
-            }
-        }   
         
     }
     public void GenerateWave(){
@@ -119,14 +131,16 @@ public class WaveManager : MonoBehaviour{
     }
     public void Win(){
         Time.timeScale = 0;
-        //win ui ->go to main menu
+        AudioManager.instance.audioMixer.SetFloat("music",-100);    
+        GameManager.instance.pause = true;
         WinUI.SetActive(true);
 
     }
     public void Lose(){
         Time.timeScale = 0;
+        AudioManager.instance.audioMixer.SetFloat("music",-100);    
+        GameManager.instance.pause = true;
         LoseUI.SetActive(true);
-        //lose ui -> go to main menu or retry
     }
     [System.Serializable]
     public class Enemy{

@@ -11,11 +11,8 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(0);
     }
     public void UnPause(){
-        GameObject player= GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerPause>().pause = false;
-        Time.timeScale = 1;
-        
-        
+        GameManager.instance.pause = false;
         gameObject.SetActive(false);
+        Time.timeScale =1f;
     }
 }

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if(!GetComponent<PlayerPause>().pause){
+        if(!GameManager.instance.pause){
             float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
             if(direction< 0){
                 transform.eulerAngles = Vector2.up * -180;
@@ -29,13 +29,14 @@ public class PlayerMovement : MonoBehaviour
                 transform.eulerAngles = Vector2.zero;
                 isFacingRight  = true;
             }
+            
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!GetComponent<PlayerPause>().pause){
+        if(!GameManager.instance.pause){
             move.x = Input.GetAxisRaw("Horizontal");
             move.y = Input.GetAxisRaw("Vertical");
             rb.velocity = playerSpeed * move;

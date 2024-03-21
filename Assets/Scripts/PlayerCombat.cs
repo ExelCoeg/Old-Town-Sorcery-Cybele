@@ -89,7 +89,7 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!GetComponent<PlayerPause>().pause){
+        if(!GameManager.instance.pause){
 
             AimingAt();
             UpdateCurrentCombatStateText();

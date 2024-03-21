@@ -23,7 +23,7 @@ public class Trap : MonoBehaviour
             foreach(Collider2D hit in hits){
                 hit.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
             }
-            
+            explode.Play();
             AudioManager.instance.PlaySFX("trap_explode");
             isPlaying = true;
         }

@@ -116,13 +116,18 @@ GameObject:
   - component: {fileID: 4519110893666132292}
   - component: {fileID: 3976474392803141436}
   - component: {fileID: 6889886426084674245}
+  - component: {fileID: 7577512302722551680}
   - component: {fileID: 306660344471298118}
   - component: {fileID: 5988867744036247039}
   - component: {fileID: 1518304170351976557}
   - component: {fileID: 622415594689348585}
   - component: {fileID: 955991974030869999}
+  - component: {fileID: 7600495814889676028}
   - component: {fileID: 3895777488875461084}
   - component: {fileID: 5243764672402702872}
+  - component: {fileID: 507095002364972377}
+  - component: {fileID: 8143204795325721405}
+  - component: {fileID: 3984740518214139636}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -187,7 +192,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1558117301
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 830285572, guid: 741fc3fee2a99c24c8367ee7501a474d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -247,6 +252,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &7577512302722551680
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303648725642344576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.051729262, y: -0.1003657}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.15625, y: 1.703125}
+    newSize: {x: 4.625, y: 6.8125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55306447, y: 0.9641665}
+  m_EdgeRadius: 0
 --- !u!61 &306660344471298118
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -279,7 +329,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000008940697, y: 0.013069272}
+  m_Offset: {x: 0.038653582, y: -0.2748338}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -290,7 +340,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.156832, y: 1.7580221}
+  m_Size: {x: 0.8733726, y: 1.1822159}
   m_EdgeRadius: 0
 --- !u!114 &5988867744036247039
 MonoBehaviour:
@@ -322,18 +372,30 @@ MonoBehaviour:
   ownedSpells:
   - {fileID: 11400000, guid: 6b44c5f237df2664d8c7e5d90def1af8, type: 2}
   - {fileID: 11400000, guid: 4bdfcff88b02fb845911302b2a3aa2ba, type: 2}
+  currentPotion: 0
   throwSpeed: 5
   ownedPotions:
-  - {fileID: 6483927984229716990, guid: ad8a694e9b3136941944d2127f3c39af, type: 3}
-  - {fileID: 7509080149962610945, guid: 8f64a5f1c7de84e489c547999ef49f1a, type: 3}
   - {fileID: 6756055744557823461, guid: ee49a4798ea5952459323948d162d70c, type: 3}
+  - {fileID: 7509080149962610945, guid: 8f64a5f1c7de84e489c547999ef49f1a, type: 3}
+  - {fileID: 6483927984229716990, guid: ad8a694e9b3136941944d2127f3c39af, type: 3}
   firePoint: {fileID: 2141127576587474492}
   attackRadius: 1
   attackDamage: 0
   maxAttackDamage: 18
   isAttacking: 0
   onStates: 
+  onMelee: 1
+  onSpell: 0
+  onPotion: 0
+  inventory: {fileID: 0}
+  itemList: {fileID: 0}
   onAnimation: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damagableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &622415594689348585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,8 +410,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  regenAmount: 10
+  regenAmount: 5
   healthSlider: {fileID: 0}
+  taggedUntilRegenTime: 5
 --- !u!114 &955991974030869999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +428,20 @@ MonoBehaviour:
   maxMana: 100
   currentMana: 0
   manaSlider: {fileID: 0}
+--- !u!114 &7600495814889676028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303648725642344576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f3c4d6b1f5db444bfcb518f55790af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentDefense: 0
+  maxDefense: 14
 --- !u!114 &3895777488875461084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,8 +454,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918fe5097fcceba4baa7a3b7e7a3726e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballCooldown: 0
-  scorchingCooldown: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  fireballCooldownIcon: {fileID: 0}
+  scorchingBlazeCooldownIcon: {fileID: 0}
 --- !u!114 &5243764672402702872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +472,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLight: {fileID: 3257891528273206138}
+--- !u!114 &507095002364972377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303648725642344576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219859ca56bb3ce4fa5acdaba4c0eb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8143204795325721405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303648725642344576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed2efda4351e154590ebb0e64ebbc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &3984740518214139636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303648725642344576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88195b2deea329478ad44f80eee17ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
 --- !u!1 &7774468320747787857
 GameObject:
   m_ObjectHideFlags: 0
