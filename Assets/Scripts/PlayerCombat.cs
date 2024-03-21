@@ -69,6 +69,7 @@ public class PlayerCombat : MonoBehaviour
    /*------------- layers -----------*/
    public LayerMask enemyLayer;
    public LayerMask damagableLayer;
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -88,73 +89,75 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!GetComponent<PlayerPause>().pause){
 
-        AimingAt();
-        UpdateCurrentCombatStateText();
-        PlayerAnimation();
-        CycleState();
-        
-        if (onPotion)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                currentPotion--;
-                AudioManager.instance.PlaySFX("move_potion");
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                currentPotion++;
-                AudioManager.instance.PlaySFX("move_potion");
-            }
-            if (currentPotion < 0) currentPotion = 0;
-            if(ownedPotions.Count == 0){
-                NextState();
-            }
-            if (currentPotion >= ownedPotions.Count) currentPotion = ownedPotions.Count - 1;
-            if (Input.GetMouseButtonDown(0) && !onAnimation) 
-            {
-                UsePotion(ownedPotions[currentPotion]);     
-            }
-
+            AimingAt();
+            UpdateCurrentCombatStateText();
+            PlayerAnimation();
+            CycleState();
             
-        }
-
-        if (onSpell)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (onPotion)
             {
-                currentSpell--;
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                currentSpell++;
-            }
-            if (currentSpell < 0) currentSpell = 0;
-            if (currentSpell >= ownedSpells.Count) currentSpell = ownedSpells.Count - 1;
-            if (ownedSpells.Count > 0 )
-            {
-                if (Input.GetMouseButtonDown(0) && GetComponent<PlayerMana>().currentMana >= ownedSpells[currentSpell].manaCost)
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    
-                    if (ownedSpells[currentSpell].GetType().Name == "AOESpell")
+                    currentPotion--;
+                    AudioManager.instance.PlaySFX("move_potion");
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    currentPotion++;
+                    AudioManager.instance.PlaySFX("move_potion");
+                }
+                if (currentPotion < 0) currentPotion = 0;
+                if(ownedPotions.Count == 0){
+                    NextState();
+                }
+                if (currentPotion >= ownedPotions.Count) currentPotion = ownedPotions.Count - 1;
+                if (Input.GetMouseButtonDown(0) && !onAnimation) 
+                {
+                    UsePotion(ownedPotions[currentPotion]);     
+                }
+
+                
+            }
+
+            if (onSpell)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    currentSpell--;
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    currentSpell++;
+                }
+                if (currentSpell < 0) currentSpell = 0;
+                if (currentSpell >= ownedSpells.Count) currentSpell = ownedSpells.Count - 1;
+                if (ownedSpells.Count > 0 )
+                {
+                    if (Input.GetMouseButtonDown(0) && GetComponent<PlayerMana>().currentMana >= ownedSpells[currentSpell].manaCost)
                     {
-                        spellCaster.AOECast(ownedSpells[currentSpell] as AOESpell, firePoint);
-                    }
-                    if(ownedSpells[currentSpell].GetType().Name == "SingleTargetSpell"){
                         
-                        var spell = ownedSpells[currentSpell] as SingleTargetSpell;
-                        spellCaster.SingleTargetCast(spell, spell.effect);
+                        if (ownedSpells[currentSpell].GetType().Name == "AOESpell")
+                        {
+                            spellCaster.AOECast(ownedSpells[currentSpell] as AOESpell, firePoint);
+                        }
+                        if(ownedSpells[currentSpell].GetType().Name == "SingleTargetSpell"){
+                            
+                            var spell = ownedSpells[currentSpell] as SingleTargetSpell;
+                            spellCaster.SingleTargetCast(spell, spell.effect);
+                        }
+                        ChangeAnimation(playerCasting_parameter);
+                        
                     }
-                    ChangeAnimation(playerCasting_parameter);
-                    
                 }
             }
-        }
-        if(onMelee)
-        {
-            if (Input.GetMouseButtonDown(0) && !isAttacking){
-                PlayerAttack();
-            } 
+            if(onMelee)
+            {
+                if (Input.GetMouseButtonDown(0) && !isAttacking){
+                    PlayerAttack();
+                } 
+            }
         }
     }
     void PlayerAttack()

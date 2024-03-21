@@ -19,27 +19,30 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
-        float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-        if(direction< 0){
-            transform.eulerAngles = Vector2.up * -180;
-            isFacingRight = false;
-        }
-        else{
-            transform.eulerAngles = Vector2.zero;
-            isFacingRight  = true;
+        if(!GetComponent<PlayerPause>().pause){
+            float direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            if(direction< 0){
+                transform.eulerAngles = Vector2.up * -180;
+                isFacingRight = false;
+            }
+            else{
+                transform.eulerAngles = Vector2.zero;
+                isFacingRight  = true;
+            }
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        move.x = Input.GetAxisRaw("Horizontal");
-        move.y = Input.GetAxisRaw("Vertical");
-        rb.velocity = playerSpeed * move;
+        if(!GetComponent<PlayerPause>().pause){
+            move.x = Input.GetAxisRaw("Horizontal");
+            move.y = Input.GetAxisRaw("Vertical");
+            rb.velocity = playerSpeed * move;
 
-        speed = Vector3.SqrMagnitude(rb.velocity);
-        anim.SetFloat("speed", speed);
+            speed = Vector3.SqrMagnitude(rb.velocity);
+            anim.SetFloat("speed", speed);
+        }
     }
 
 

@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
     public Sound[] musicSounds,sfxSounds;
     public AudioSource musicSource,sfxSource;
     public AudioMixer audioMixer;
+    public PlayerPause playerPause;
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -14,13 +15,21 @@ public class AudioManager : MonoBehaviour {
         else{
             Destroy(gameObject);
         }
+
     }
     private void Start() {
         PlayMusic("noon");
     }
 
+    private void Update() {
+        if(playerPause.pause){
+            audioMixer.SetFloat("music",-80);
+        }
+        else{
+            audioMixer.SetFloat("music",0);
+        }
+    }
     
-
     public void PlayMusic(string name){
         audioMixer.SetFloat("music", -100);
         Sound s = Array.Find(musicSounds, x => x.name == name);
