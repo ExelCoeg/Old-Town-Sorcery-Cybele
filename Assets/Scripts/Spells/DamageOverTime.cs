@@ -10,14 +10,14 @@ public class DamageOverTime : MonoBehaviour
     float aoeDamage;
     float dotTime;
     float dotTimer;
-
+    LayerMask enemyLayer;
     Vector2 targetPos;
 
     /*------ Private variable --------*/
     private bool isActivated;
 
    
-    public void SetValues( float speed, float aoeRadius, float aoeDamage, float aoeTime, float dotTime)
+    public void SetValues( float speed, float aoeRadius, float aoeDamage, float aoeTime, float dotTime,LayerMask enemyLayer)
     {
        
         this.speed = speed;
@@ -25,6 +25,7 @@ public class DamageOverTime : MonoBehaviour
         this.aoeRadius = aoeRadius;
         this.aoeTime = aoeTime;
         this.dotTime = dotTime;
+        this.enemyLayer = enemyLayer;
     }
     void Start()
     {
@@ -47,7 +48,7 @@ public class DamageOverTime : MonoBehaviour
     }
     void StartAOE()
     {
-        Collider2D[] damagedObjs = Physics2D.OverlapCircleAll(transform.position, aoeRadius);
+        Collider2D[] damagedObjs = Physics2D.OverlapCircleAll(transform.position, aoeRadius,enemyLayer);
         foreach (Collider2D damageObj in damagedObjs)
         {
             dotTimer += Time.deltaTime;

@@ -18,6 +18,7 @@ public class WaveManager : MonoBehaviour{
     [Header("Trap")]
     public GameObject[] traps;
     private float timer;
+    public float timerForAM;
     public float noonTime;
     public bool noon = true;
 
@@ -51,11 +52,13 @@ public class WaveManager : MonoBehaviour{
         
         if(noon) {
             timer -= Time.deltaTime;
+            timerForAM = timer; 
             noonTimer.GetComponent<TextMeshProUGUI>().text = ((int) timer).ToString();
             if(timer<=0) {
                 AudioManager.instance.PlayMusic("night");
                 foreach(GameObject trap in traps) {
                     trap.SetActive(true);
+                    trap.GetComponent<SpriteRenderer>().enabled = true;
                 }
                 worldLight.GetComponent<Animator>().SetTrigger("switch");
                 noon = !noon;
@@ -66,6 +69,7 @@ public class WaveManager : MonoBehaviour{
        
         
         if(!noon & enemySpawned.Count <= 0 && waveValue <= 0){
+
             AudioManager.instance.PlayMusic("noon");
             noonTimer.SetActive(true);
             worldLight.GetComponent<Animator>().SetTrigger("switch");
@@ -96,21 +100,20 @@ public class WaveManager : MonoBehaviour{
         }
         while(waveValue >= 0 && spawnTimer <= 0){
             Enemy enemy = enemyList[Random.Range(0,enemyList.Count)];
-            if(waveValue < multiplier && enemySpawned.Count ==0){
-                waveValue = 0;
-                break;
-            }
+        
+
             if(enemy.value > waveValue){
                 spawnTimer = 0.1f;
                 break;
             }
             
+            waveValue -= enemy.value;
             
             GameObject enemyClone = Instantiate(enemy.enemyGameObject,spawnPoint.position,Quaternion.identity);
-            waveValue -= enemy.value;
-            spawnTimer = spawnDelay;
             enemySpawned.Add(enemyClone);   
             enemyClone.GetComponent<EnemyMovement>().SetTargetPosition(targetPos);
+            
+            spawnTimer = spawnDelay;
         }
      
     }

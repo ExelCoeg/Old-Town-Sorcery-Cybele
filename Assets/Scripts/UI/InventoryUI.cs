@@ -42,19 +42,16 @@ public class InventoryUI : MonoBehaviour
                 buffATKPotionBorder.color = defaultColor;
                 healingPotionBorder.color = defaultColor;
                 defenseDebuffPotionBorder.color = onStateColor;
-                print("test 1");
             }
             if(playerCombat.ownedPotions[playerCombat.currentPotion].name == "Heal Potion"){
                 defenseDebuffPotionBorder.color = defaultColor;
                 buffATKPotionBorder.color = defaultColor;
                 healingPotionBorder.color = onStateColor;
-                print("test 2");
             }
             if(playerCombat.ownedPotions[playerCombat.currentPotion].name == "Buff Attack Potion"){
                 defenseDebuffPotionBorder.color = defaultColor;
                 healingPotionBorder.color = defaultColor;
                 buffATKPotionBorder.color = onStateColor;
-                print("test 3");
             }
         }
         if(playerCombat.onMelee){

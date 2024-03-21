@@ -16,5 +16,5 @@ MonoBehaviour:
   spellName: Scorching Blaze
   manaCost: 30
   cooldownTime: 4
-  damage: 41
+  damage: 50
   effect: {fileID: 56852242586695117, guid: 30e2e6ef3a6b290428f91f54f992ca24, type: 3}

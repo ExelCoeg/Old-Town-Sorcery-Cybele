@@ -66,7 +66,9 @@ public class PlayerCombat : MonoBehaviour
     private string idle_parameter = "player_idle";
     private string currentAnimation;
     public bool onAnimation;
-   
+   /*------------- layers -----------*/
+   public LayerMask enemyLayer;
+   public LayerMask damagableLayer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -97,10 +99,12 @@ public class PlayerCombat : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 currentPotion--;
+                AudioManager.instance.PlaySFX("move_potion");
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
                 currentPotion++;
+                AudioManager.instance.PlaySFX("move_potion");
             }
             if (currentPotion < 0) currentPotion = 0;
             if(ownedPotions.Count == 0){
@@ -142,12 +146,15 @@ public class PlayerCombat : MonoBehaviour
                         spellCaster.SingleTargetCast(spell, spell.effect);
                     }
                     ChangeAnimation(playerCasting_parameter);
+                    
                 }
             }
         }
         if(onMelee)
         {
-            if (Input.GetMouseButtonDown(0) && !isAttacking) PlayerAttack();
+            if (Input.GetMouseButtonDown(0) && !isAttacking){
+                PlayerAttack();
+            } 
         }
     }
     void PlayerAttack()
@@ -155,12 +162,31 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
     
         anim.SetTrigger(attack_parameter);
-        Collider2D[] hits= Physics2D.OverlapCircleAll(firePoint.position, attackRadius);
+        Collider2D[] hits= Physics2D.OverlapCircleAll(firePoint.position, attackRadius,enemyLayer);
+        if(hits.Length == 0){
+            AudioManager.instance.PlaySFX("sword_attack");
+        }
+        else{
+            AudioManager.instance.PlaySFX("sword_impact");
+        }
         foreach(Collider2D hit in hits)
         {
-            if (hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) enemyHealth.TakeDamage(attackDamage);
-            if(hit.TryGetComponent<ResourceObjectHealth>(out ResourceObjectHealth resourceObject)) resourceObject.TakeDamage(attackDamage);
+            if (hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth)) 
+            {
+                enemyHealth.TakeDamage(attackDamage);
+            }
+            
+        }  
+        Collider2D[] hitsResource= Physics2D.OverlapCircleAll(firePoint.position, attackRadius,damagableLayer);
+        foreach(Collider2D hitResource in hitsResource){
+            if(hitResource.TryGetComponent<ResourceObjectHealth>(out ResourceObjectHealth resourceObject)) {
+                print("test");
+                resourceObject.TakeDamage(attackDamage);
+                AudioManager.instance.PlaySFX("resource_destroy");
+            }
+        
         }
+        
     }
     void AimingAt()
     {
@@ -188,20 +214,25 @@ public class PlayerCombat : MonoBehaviour
         GameObject potionClone = Instantiate(potion, firePoint.position, Quaternion.identity);
         if(potionClone.TryGetComponent<IThrowable>(out IThrowable throwable))
         {
+           
+
             throwable.Launch(mousePos, throwSpeed);
         }
     }
 
     void UsePotion(GameObject potion)
     {
+        
         var throwable = potion.GetComponent<ThrowablePotion>();
         var consummable = potion.GetComponent<ConsummablePotion>();
-        if(throwable){
-            
+        if(throwable != null){
             ThrowPotion(potion);
         }
         
-        if (consummable){
+        if (consummable!= null){
+            print("consume potion");
+
+            AudioManager.instance.PlaySFX("potion_consume");
             ConsumePotion(potion);
             if(consummable.potionName == ConsummablePotionName.HEAL && !onAnimation) 
             {
@@ -284,10 +315,20 @@ public class PlayerCombat : MonoBehaviour
 
     void NextState(){
         onStates[currentState] = false;
+        
         currentState++;
         if(currentState >= onStates.Count)
         {
             currentState = 0;
+        }
+        if(currentState == 0){
+            AudioManager.instance.PlaySFX("sword_switch");
+        }
+        if(currentState == 1){
+            AudioManager.instance.PlaySFX("magic_staff_switch");
+        }
+        if(currentState == 2){
+            AudioManager.instance.PlaySFX("move_potion");
         }
         onStates[currentState] = true;
     }

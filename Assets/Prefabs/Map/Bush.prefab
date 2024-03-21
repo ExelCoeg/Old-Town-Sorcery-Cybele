@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3021956247680981115}
   - component: {fileID: 6532818493504370467}
   - component: {fileID: 8970272159422229240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 564690207
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: -1307198502, guid: 4257fb0db91b5694290fdeb7d120e184, type: 3}
+  m_Sprite: {fileID: 1099259196, guid: 0bb9fe3f866ea9e4f9ede58ba886a9fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

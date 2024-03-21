@@ -67,6 +67,7 @@ public class EnemyMovement : MonoBehaviour
         this.targetPos = targetPos;
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Trap")) other.GetComponent<Trap>().isActivated = true;
+        if(other.CompareTag("Trap")) other.GetComponent<Trap>().Explode();
+        if(other.CompareTag("finish")) WaveManager.instance.Lose();
     }
 }

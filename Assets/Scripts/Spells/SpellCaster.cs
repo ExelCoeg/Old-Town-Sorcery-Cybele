@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SpellCaster : MonoBehaviour
 {
+    /*--------------- layer mask------------------*/
+    public LayerMask enemyLayer;
      /*------------- cooldown timer ----------------*/
 
     float fireballCooldown;
@@ -15,6 +17,7 @@ public class SpellCaster : MonoBehaviour
 
     public Image fireballCooldownIcon;
     public Image scorchingBlazeCooldownIcon;
+    
 
     bool isAvailable_Fireball =true;
     bool isAvailable_ScorchingBlaze = true;
@@ -53,7 +56,7 @@ public class SpellCaster : MonoBehaviour
                 fireballCooldownIcon.fillAmount = 1;
                 var spellType = spellClone.AddComponent<DamageOverTime>();
 
-                spellType.SetValues(spell.speed, spell.aoeRadius, spell.aoeDamage, spell.spellFinishTime, spell.dotTime);
+                spellType.SetValues(spell.speed, spell.aoeRadius, spell.aoeDamage, spell.spellFinishTime, spell.dotTime,enemyLayer);
                 var fireEffect = spellClone.AddComponent<FireEffect>();
                 if (fireEffect)
                 {
@@ -61,6 +64,7 @@ public class SpellCaster : MonoBehaviour
                 }
                 GetComponent<PlayerMana>().currentMana -= spell.manaCost;
                 GetComponent<PlayerMana>().ResetUseTimer();
+                AudioManager.instance.PlaySFX("firespells");
 
             }
             
@@ -78,6 +82,8 @@ public class SpellCaster : MonoBehaviour
                 script.init(spell.damage,effect);
                 GetComponent<PlayerMana>().currentMana -= spell.manaCost;
                 GetComponent<PlayerMana>().ResetUseTimer();
+                AudioManager.instance.PlaySFX("firespells");
+
             }
         }
     }

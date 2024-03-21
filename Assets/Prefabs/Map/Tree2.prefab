@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1260036568869394778}
   - component: {fileID: 2954610879136119955}
   - component: {fileID: 8175385140171618985}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree2
   m_TagString: Tree
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1203461130, guid: 4257fb0db91b5694290fdeb7d120e184, type: 3}
+  m_Sprite: {fileID: -2050976602, guid: 0bb9fe3f866ea9e4f9ede58ba886a9fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.8125}
+    oldSize: {x: 1, y: 1.78125}
     newSize: {x: 0.9375, y: 1.328125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -169,7 +169,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.8125}
+    oldSize: {x: 1, y: 1.78125}
     newSize: {x: 0.9375, y: 1.328125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -194,7 +194,6 @@ MonoBehaviour:
   maxHealth: 50
   isAlive: 1
   drops:
-  - {fileID: 7396338554625568477, guid: 08ce2bdda5a977c49980eb7d587f3a01, type: 3}
   - {fileID: 3366262369307476370, guid: d72b30311d1ceb84394e9fb530a35b45, type: 3}
 --- !u!210 &8175385140171618985
 SortingGroup:

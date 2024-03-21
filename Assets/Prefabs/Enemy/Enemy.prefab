@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 0
   speed: 2
-  detectRadius: 2
+  detectRadius: 3
   targetPos: {fileID: 0}
   playerLayer:
     serializedVersion: 2

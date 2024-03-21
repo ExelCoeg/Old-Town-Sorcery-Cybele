@@ -1,9 +1,11 @@
 using UnityEngine;
 using System;
+using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour {
     public static AudioManager instance;
     public Sound[] musicSounds,sfxSounds;
     public AudioSource musicSource,sfxSource;
+    public AudioMixer audioMixer;
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -13,12 +15,15 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
         }
     }
-   private void Start() {
+    private void Start() {
         PlayMusic("noon");
-   }
-   
+    }
+
+    
+
     public void PlayMusic(string name){
-        Sound s = Array.Find(musicSounds,x=>x.name == name);
+        audioMixer.SetFloat("music", -100);
+        Sound s = Array.Find(musicSounds, x => x.name == name);
         if(s == null){
             print("Sound not found");
         }
@@ -26,7 +31,7 @@ public class AudioManager : MonoBehaviour {
             musicSource.clip = s.clip;
             musicSource.Play();
         }
-        FadeAudioSource.StartFade(musicSource,2,100);
+        StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "music", 1, 90));
     }
     public void PlaySFX(string name){
         Sound s = Array.Find(sfxSounds, x=>x.name == name);

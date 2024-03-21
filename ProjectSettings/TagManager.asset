@@ -10,6 +10,7 @@ TagManager:
   - WellCooldown
   - Entrance
   - Trap
+  - finish
   layers:
   - Default
   - TransparentFX
